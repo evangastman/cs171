@@ -25,11 +25,13 @@ TotalVis = function(_parentElement, _data, _metaData){
     this.displayData = [];
 
     // TODO: define all constants here
-    this.margin = {top: 20, right: 10, bottom: 30, left: 30},
+    this.margin = {top: 20, right: 10, bottom: 30, left: 60},
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 400 - this.margin.top - this.margin.bottom;
 
     console.log(to_total(this.metaData));
+    console.log(filters);
+
 
     this.initVis();
 
@@ -51,11 +53,13 @@ TotalVis.prototype.initVis = function(){
         .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
     // creates axis and scales
-    this.x = d3.scale.ordinal()
-      .rangeRoundBands([0, this.width], .1);
+   
+    this.x = d3.scale.linear()
+      .range([this.width, 0]);
 
-    this.y = d3.scale.linear()
-      .range([this.height, 0]);
+    this.y = d3.scale.ordinal()
+      .rangeRoundBands([this.height, 0], .1);
+
 
     this.xAxis = d3.svg.axis()
       .scale(this.x)
@@ -122,8 +126,14 @@ TotalVis.prototype.updateVis = function(){
     // TODO: ...update scales
     // TODO: ...update graphs
     //this.x.domain(this.displayData.map(function(d, i) { return i; }));
-    this.y.domain(totalcats);
-    this.x.domain([0, d3.max(that.displayData)]);
+    //this.y.domain([0, d3.max(function(d,i)that.displayData["number"])]);
+    
+
+    // y.domain will depend on whether or not we show total population
+    this.y.domain(["PAST-MONTH", "PAST-YEAR", "TOTAL"]);
+    
+
+    this.x.domain([100, 0]);
 
     // updates axis
     this.svg.select(".x.axis")
@@ -158,15 +168,20 @@ TotalVis.prototype.updateVis = function(){
     // Update all inner rects and texts (both update and enter sets)
     bar.selectAll("rect")
       .attr("x", function(d, i){
-      	return 10;
+      	return 30;
       })
-      .attr("y", function(d){
-      	return that.y(totalcats[that.displayData.indexOf(d)]);
+      .attr("y", function(d, i){
+      	return i * 10;
+      })
 
       .attr("height", function(d){
       	return that.height/6;
       })
 
+      .attr("width", function(d, i){
+        console.log(that.displayData[i].number);
+        return that.x(that.displayData[i].number);
+      })
       /*
       .style("fill", function(d) {
         var i = that.displayData.indexOf(d);
@@ -174,10 +189,6 @@ TotalVis.prototype.updateVis = function(){
       }) */
 
       .transition()
-
-      .attr("width", function(d, i) {
-          return that.x(d);
-      });
 
 }
 
