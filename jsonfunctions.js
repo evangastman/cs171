@@ -29,6 +29,9 @@ to the survey having changed. It's also really hard to do any kind of brush or s
 without continuous varaibles. This survey does not allow respondents to input values,
 however, so we have none of those.
 
+
+NOTE: I HAVE COPIED ALL THESE FUNCTIONS TO index.html
+
 */
 
 // these need to be loaded in. data is CS171_UsersOnly_JSON.json and metadata is CS171_metaData.json
@@ -64,25 +67,25 @@ function filter (d){
 }
 
 // returns array of length 3: population, heroin users in past year, heroin users in past month
-function total (){
+function to_total(_metadata){
 	
 	var totaldata = [0, 0, 0];
 
 	if(filters.income == null){
 		for(i in metadata){
-			totaldata[0] += metadata[i]["number"];
-			totaldata[1] += metadata[i]["HERYR"];
-			totaldata[2] += metadata[i]["HERMON"];
+			totaldata[0] += _metadata[i]["number"];
+			totaldata[1] += _metadata[i]["HERYR"];
+			totaldata[2] += _metadata[i]["HERMON"];
 		}
 
 	}
 
 	else{
-		for(i in metadata){
-			if(metadata[i]["INCOME"] == filters.income){
-				totaldata[0] == metadata[i]["number"];
-				totaldata[1] == metadata[i]["HERYR"];
-				totaldata[2] == metadata[i]["HERMON"];
+		for(i in _metadata){
+			if(_metadata[i]["INCOME"] == filters.income){
+				totaldata[0] == _metadata[i]["number"];
+				totaldata[1] == _metadata[i]["HERYR"];
+				totaldata[2] == _metadata[i]["HERMON"];
 				break;
 			}
 		}
@@ -94,12 +97,12 @@ function total (){
 }
 
 // returns array of number of heroin users fitting each crime category
-function to_crime (){
+function to_crime(_data){
 
 	var crimedata = [0, 0, 0, 0, 0, 0];
 
-	for(i in data){
-		if(filter(data[i])){
+	for(i in _data){
+		if(filter(_data[i])){
 			for(j in crimecats){
 				if(data[i][crimecats[j]] == 1){
 					crimedata[j] ++;
@@ -112,14 +115,14 @@ function to_crime (){
 }
 
 // returns array of number of heroin users fitting each mental health category
-function to_mh(){
+function to_mh(_data){
 
 	var mhdata = [0, 0, 0];
 
-	for(i in data){
-		if(filter(data[i])){
+	for(i in _data){
+		if(filter(_data[i])){
 			for(j in mhcats){
-				if(data[i][mhcats[j]] == 1){
+				if(_data[i][mhcats[j]] == 1){
 					mhdata[j] ++;
 				}
 			}
