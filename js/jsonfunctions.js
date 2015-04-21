@@ -26,7 +26,7 @@ enough. Even though the views are basically all coordinated, they're just respon
 to filters. This isn't technically different from a slider or a brush or whatever,
 but those have a "real-time" dynamic feel to them. Unfortunately we can't do time due
 to the survey having changed. It's also really hard to do any kind of brush or slider
-without continuous varaibles. This survey does not allow respondents to input values,
+without continuous variables. This survey does not allow respondents to input values,
 however, so we have none of those.
 
 */
