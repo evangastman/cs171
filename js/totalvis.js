@@ -30,7 +30,7 @@ TotalVis = function(_parentElement, _data, _metaData){
     this.height = 400 - this.margin.top - this.margin.bottom;
 
     console.log(to_total(this.metaData));
-    console.log(filters);
+    //console.log(filters);
 
 
     this.initVis();
@@ -98,7 +98,7 @@ TotalVis.prototype.initVis = function(){
 TotalVis.prototype.wrangleData= function(_filterFunction){
 
     // displayData should hold the data which is visualized
-    this.displayData = this.filterAndAggregate(_filterFunction);
+    this.displayData = this.filterAndAggregate();
 
     //// you might be able to pass some options,
     //// if you don't pass options -- set the default options
@@ -145,7 +145,8 @@ TotalVis.prototype.updateVis = function(){
     // updates graph
     // Data join
     var bar = this.svg.selectAll(".bar")
-      .data(this.displayData, function(d) { return d; });
+      .data(this.displayData, function(d,i) { console.log(i);
+        return d; });
 
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");
@@ -179,7 +180,8 @@ TotalVis.prototype.updateVis = function(){
       })
 
       .attr("width", function(d, i){
-        console.log(that.displayData[i].number);
+        //console.log(that.displayData[i].number);
+        console.log(i)
         return that.x(that.displayData[i].number);
       })
       /*
