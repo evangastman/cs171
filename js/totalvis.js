@@ -29,8 +29,8 @@ TotalVis = function(_parentElement, _data, _metaData){
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 400 - this.margin.top - this.margin.bottom;
 
-    console.log(to_total(this.metaData));
-    console.log(filters);
+    // console.log(to_total(this.metaData));
+    // console.log(filters);
 
 
     this.initVis();
@@ -179,7 +179,7 @@ TotalVis.prototype.updateVis = function(){
       })
 
       .attr("width", function(d, i){
-        console.log(that.displayData[i].number);
+        // console.log(that.displayData[i].number);
         return that.x(that.displayData[i].number);
       })
       /*

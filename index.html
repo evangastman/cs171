@@ -28,6 +28,8 @@
     <script src = "js/jsonfunctions.js"></script>
     <script src = "js/totalvis.js"></script>
     <script src="js/countvis.js"></script>
+    <script src="js/crimevis.js"></script>
+    <script src="js/mhvis.js"></script>
 
 
 
@@ -36,7 +38,60 @@
 
 </head>
 
+<style>
 
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar:hover {
+  fill: orangered ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+ Creates a small triangle extender for the tooltip 
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
 
 <body>
 
@@ -68,10 +123,6 @@
                 <input type="radio" name="income" value="income4"> Income 4</label>
         </form>
 
-
-    
-
-
         <div class="row">
             <div class="col-md-2">
             </div>
@@ -79,12 +130,23 @@
 
         <div class="row">
             <div class="col-md-12" id="totalVis">
-                <!-- TODO: delete placeholder svg element -->
                 <svg width="650" height="440">
                     <text x="50" y="50"></text>
                 </svg>
             </div>
 
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" id="crimeVis">
+                <h2> crime</h2>
+            </div>
+        </div>
+
+                <div class="row">
+            <div class="col-md-12" id="mhVis">
+                <h2> mental health </h2>
+            </div>
         </div>
     </div>
 
@@ -103,6 +165,8 @@
             // variables keeping global knowledge of the data
             var allData = [];
             var metaData = {};
+            var crimeData = [];
+            var mhData = [];
 
 
             // call this function after Data is loaded, reformatted and bound to the variables
@@ -114,6 +178,10 @@
                 //TODO: Instantiate all Vis Objects here
 
                 var total_vis = new TotalVis(d3.select("#totalVis"), allData, metaData);
+
+                var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData);
+
+                var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData)
 
 
                 // TODO: bind the eventHandler to the Vis Objects
@@ -150,13 +218,9 @@
                     * */
 
                     allData = _allData;
-
-                    console.log(allData);
-
                     metaData = _metaData;
-
-                    console.log(metaData);
-
+                    crimeData = to_crime(allData);
+                    mhData = to_mh(allData);
                     initVis();
                 }
             }
@@ -252,7 +316,7 @@
         for(i in _data){
             if(bigfilter(_data[i])){
                 for(j in crimecats){
-                    if(data[i][crimecats[j]] == 1){
+                    if(_data[i][crimecats[j]] == 1){
                         crimedata[j] ++;
                     }
                 }
@@ -305,9 +369,7 @@
         <script>
             $(function() { // this function is called after the HTML document is fully loaded
 
-
-                // variables keeping global knowledge of the data
-               
+                // variables keeping global knowledge of the data               
 
                 var allData = [];
                 var metaData = {};
@@ -358,8 +420,6 @@
                             }
                         }
                     }
-
-    
 
                     return totaldata;
                 }
@@ -415,14 +475,12 @@
 
                 }
 
-
                 var dataLoaded = function(error, _allData, _metaData) {
 
                     if (!error) {}
 
                         initVis();
                     }
-
 
                 var startHere = function(){
                     queue()
@@ -431,8 +489,6 @@
                         .await(dataLoaded);
 
                 }
-
-
                 startHere();
 
 })
