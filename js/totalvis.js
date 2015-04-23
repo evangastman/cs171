@@ -15,13 +15,14 @@
  *
  * */
 
-TotalVis = function(_parentElement, _data, _metaData){
+TotalVis = function(_parentElement, _data, _metaData, _totalPop){
 
     // NOTE: THIS VIS ONLY USES THE METADATA
 
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+    this.totalPop = _totalPop;
 
     this.displayData = [];
 
@@ -32,10 +33,10 @@ TotalVis = function(_parentElement, _data, _metaData){
 
 
     console.log(this.metaData);
-    console.log(to_total(this.metaData));
+    // console.log(to_total(this.metaData));
 
 
-    console.log(to_total(this.metaData));
+    // console.log(to_total(this.metaData));
     // console.log(filters);
 
     this.initVis();
@@ -69,6 +70,7 @@ TotalVis.prototype.initVis = function(){
     this.xAxis = d3.svg.axis()
       .scale(this.x)
       .orient("bottom")
+      .ticks(10, "%")
 
     this.yAxis = d3.svg.axis()
     	.scale(this.y)
@@ -115,13 +117,26 @@ TotalVis.prototype.wrangleData= function(_filterFunction){
 TotalVis.prototype.updateVis = function(){
 
 
-    var that = this;    
+    var that = this;  
+
+    // 
+    console.log(this.metaData);
+    var totals = this.metaData;
+    console.log(totals);
+    var pop = this.totalPop;
+    console.log(pop);
+
+
+    var tot_mon_year = [totals[1]/pop, totals[2]/pop];
+    console.log(tot_mon_year);
+
 
     // y.domain will depend on whether or not we show total population
-    this.y.domain(["PAST-MONTH", "PAST-YEAR", "TOTAL"]);
+    //this.y.domain(["PAST-MONTH", "PAST-YEAR", "TOTAL"]);
+    this.y.domain(["PAST-MONTH", "PAST-YEAR"]);
     
 
-    this.x.domain([100, 0]);
+    this.x.domain([.005, 0]);
 
     // updates axis
     this.svg.select(".x.axis")
@@ -134,9 +149,9 @@ TotalVis.prototype.updateVis = function(){
     // Data join
     var bar = this.svg.selectAll(".bar")
 
-      .data(this.displayData, function(d,i) { 
+      .data(tot_mon_year);
 
-        return d; });
+     
 
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");
@@ -157,26 +172,23 @@ TotalVis.prototype.updateVis = function(){
       .remove();
 
     // Update all inner rects and texts (both update and enter sets)
-    bar.selectAll("rect")
+    bar.select("rect")
       .attr("x", function(d, i){
       	return 30;
       })
       .attr("y", function(d, i){
-      	return i * 10;
+      	return i * 100;
       })
 
       .attr("height", function(d){
-      	return that.height/6;
+      	return that.height/8;
       })
 
       .attr("width", function(d, i){
+        d = tot_mon_year
+        console.log(d[i]);
 
-        //console.log(that.displayData[i].number);
-        console.log(that.x(that.displayData[i].number));
-
-        // console.log(that.displayData[i].number);
-
-        return that.x(that.displayData[i].number);
+        return that.x(d[i]);
       })
       /*
       .style("fill", function(d) {
@@ -195,10 +207,13 @@ TotalVis.prototype.updateVis = function(){
  * be defined here.
  * @param selection
  */
-TotalVis.prototype.onSelectionChange= function (selectionStart, selectionEnd){
+TotalVis.prototype.onSelectionChange= function (_filteredData){
+    console.log(_filteredData);
 
+    this.metaData = _filteredData;
     // TODO: call wrangle function
-    this.wrangleData(function(d) { return (d.time >= selectionStart && d.time <= selectionEnd); });
+    // this.wrangleData(function(d) { return (d.time >= selectionStart && d.time <= selectionEnd); });
+
 
     this.updateVis();
 

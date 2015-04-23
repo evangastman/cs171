@@ -171,16 +171,20 @@ body {
             var metaData = {};
             var crimeData = [];
             var mhData = [];
+            // variable storing all the people surveyed
+            var totalPop;
 
 
             // call this function after Data is loaded, reformatted and bound to the variables
             var initVis = function(){
 
+            	var that = this;
+
                 var MyEventHandler = new Object();
 
                 //TODO: Instantiate all Vis Objects here
 
-                var total_vis = new TotalVis(d3.select("#totalVis"), allData, metaData, MyEventHandler);
+                var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), totalPop, MyEventHandler);
 
                 var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
@@ -194,9 +198,16 @@ body {
                     // set income filter
                     filters.income = _income 
                     crimeData = to_crime(allData);
+                    //allData = to_total(that.metaData);
                     console.log(crimeData);
+                    console.log(metaData);
+                    //console.log(allData);
                     cr_vis.onSelectionChange(crimeData);
+                    total_vis.onSelectionChange(to_total(metaData));
                 });
+
+
+                
 
                 // TODO: bind the eventHandler to the Vis Objects
                 // events will be created from the CountVis object (nothing to do here)
@@ -221,6 +232,11 @@ body {
 
 
                     metaData = _metaData;
+                    //remember total people surveyed
+                    totalPop = to_total(metaData)[0];
+                    console.log(to_total(metaData));
+
+
 
 
                     crimeData = to_crime(allData);
