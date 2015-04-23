@@ -115,7 +115,6 @@ body {
         <form name = "incomeForm" class = "iForm" id = "iForm">
             <p> Choose an income bracket:</p>
             <label> 
-
                 <input type="radio" name="income" value="-1" checked> All incomes </label>
             <label> 
                 <input type="radio" name="income" value="1"> Income 1</label>
@@ -133,23 +132,22 @@ body {
         </div>
 
         <div class="row">
-            <div class="col-md-12" id="totalVis">
+            <div class="col-md-8" id="totalVis">
                 <svg width="650" height="440">
                     <text x="50" y="50"></text>
                 </svg>
             </div>
+            <div class="row">
+            <div class="col-md-4" id="mhVis">
+                <h2> Mental Health </h2>
+            </div>
+        </div>
 
         </div>
 
         <div class="row">
             <div class="col-md-12" id="crimeVis">
                 <h2> Crime</h2>
-            </div>
-        </div>
-
-                <div class="row">
-            <div class="col-md-12" id="mhVis">
-                <h2> Mental Health </h2>
             </div>
         </div>
     </div>
@@ -177,6 +175,7 @@ body {
 
             // call this function after Data is loaded, reformatted and bound to the variables
             var initVis = function(){
+                    console.log(allData);
 
             	var that = this;
 
@@ -342,14 +341,13 @@ body {
     function to_crime(_data){
 
         var tempCrimeData = [0, 0, 0, 0, 0, 0];
-        console.log(_data);
 
         for(i in _data){
             //console.log(bigfilter(_data[i]));
             if(bigfilter(_data[i])){
                 for(j in crimecats){
                     if(_data[i][crimecats[j]] == 1){
-                        tempCrimeData[j] ++;
+                        tempCrimeData[j] ++;      
                     }
                 }
             }
