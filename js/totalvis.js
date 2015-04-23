@@ -22,6 +22,7 @@ TotalVis = function(_parentElement, _data, _metaData){
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+
     this.displayData = [];
 
     // TODO: define all constants here
@@ -29,10 +30,12 @@ TotalVis = function(_parentElement, _data, _metaData){
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 400 - this.margin.top - this.margin.bottom;
 
+
     console.log(this.metaData);
     console.log(to_total(this.metaData));
 
-    // console.log(to_total(this.metaData));
+
+    console.log(to_total(this.metaData));
     // console.log(filters);
 
     this.initVis();
@@ -130,7 +133,9 @@ TotalVis.prototype.updateVis = function(){
     // updates graph
     // Data join
     var bar = this.svg.selectAll(".bar")
+
       .data(this.displayData, function(d,i) { 
+
         return d; });
 
     // Append new bar groups, if required
@@ -167,7 +172,7 @@ TotalVis.prototype.updateVis = function(){
       .attr("width", function(d, i){
 
         //console.log(that.displayData[i].number);
-        console.log(i)
+        console.log(that.x(that.displayData[i].number));
 
         // console.log(that.displayData[i].number);
 

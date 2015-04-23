@@ -3,10 +3,7 @@ body{
 }
 .axis text {
     font: 10px sans-serif;
-<<<<<<< HEAD
-=======
 
->>>>>>> 119098384fb4dc55900723bc75cf46169d5b7122
 }
 
 .axis line,
@@ -29,12 +26,11 @@ body{
     pointer-events: none;
 }
 
-<<<<<<< HEAD
 .area {
     fill: lightsteelblue;
     stroke-width: 0;
 }
-=======
+
 g.tick{
     padding: 300cm;
 }
@@ -42,4 +38,4 @@ g.tick{
 .container{
     height:1200px;
 }
->>>>>>> 119098384fb4dc55900723bc75cf46169d5b7122
+
