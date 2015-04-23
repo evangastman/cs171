@@ -12,7 +12,7 @@ mhVis = function(_parentElement, _data, _metaData){
 
     this.margin = {top: 20, right: 0, bottom: 30, left: 30},
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
-    this.height = 315 - this.margin.top - this.margin.bottom;
+    this.height = 315 - this.margin.top - this.margin.bottom
 
     // set radius for pie chart
     this.radius = Math.min(this.width, this.height) / 2;

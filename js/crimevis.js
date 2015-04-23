@@ -56,15 +56,15 @@ CrimeVis.prototype.initVis = function(){
       .orient("left");
 
     // Add axes visual elements
-    this.svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + this.height + ")")
-      .append("text")
-        .attr("transform", "translate(70,20)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("type of arrest");;
+    // this.svg.append("g")
+    //   .attr("class", "x axis")
+    //   .attr("transform", "translate(0," + this.height + ")")
+    //   .append("text")
+    //     .attr("transform", "translate(70,20)")
+    //     .attr("y", 6)
+    //     .attr("dy", ".71em")
+    //     .style("text-anchor", "end")
+    //     .text("type of arrest");;
 
   this.svg.append("g")
       .attr("class", "y axis")
@@ -73,7 +73,7 @@ CrimeVis.prototype.initVis = function(){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("frequency");;
+        .text("number of crimes");;
 
     // filter, aggregate, modify data
     // this.wrangleData(null);
@@ -94,10 +94,6 @@ CrimeVis.prototype.wrangleData= function(_filterFunction){
 
     // displayData should hold the data which is visualized
     this.displayData = this.filterAndAggregate(_filterFunction);
-    //// you might be able to pass some options,
-    //// if you don't pass options -- set the default options
-    //// the default is: var options = {filter: function(){return true;} }
-    //var options = _options || {filter: function(){return true;}};
 }
 
 
@@ -157,8 +153,8 @@ CrimeVis.prototype.updateVis = function() {
     bar.select("text")
       .attr("y", 0)
       .attr("x", 0)
-      .attr("text-anchor", "end")
-      .attr("transform", "translate (60, 240)")
+      .attr("text-anchor", "middle")
+      .attr("transform", function(d,i) {return "translate (" + that.x.rangeBand(i)/2 + "," + (that.height + 10) + ")"; })
       .text(function(d, i) {return crimecats[i]; })
       .attr("class", "type-label")
       .attr("dy", ".35em")
@@ -170,20 +166,12 @@ CrimeVis.prototype.updateVis = function() {
 //  * be defined here.
 //  * @param selection
 //  */
-CrimeVis.prototype.onSelectionChange= function (selectionStart, selectionEnd){
-    // if brush is empty, give wrangleData null as its argument
-    if(selectionStart == "empty") {
-        this.wrangleData(null)
-        }
-    // else wrangle the data to get the data in the brush selection
-    else {
-            this.wrangleData(function (d) { 
-                return d.time > selectionStart && d.time < selectionEnd
-            })
-        }
+CrimeVis.prototype.onSelectionChange= function (filteredData){
+    // set data to be the filtered data
+    this.data = filteredData
 
+    // update the bar chart
     this.updateVis();
-    this.updateOrigVis();
 }
 
 CrimeVis.prototype.filterAndAggregate = function(_filter){
@@ -215,5 +203,4 @@ CrimeVis.prototype.filterAndAggregate = function(_filter){
         })
 
     return res;
-
 }

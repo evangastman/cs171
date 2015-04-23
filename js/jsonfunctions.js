@@ -80,9 +80,9 @@ function total (){
 	else{
 		for(i in metadata){
 			if(metadata[i]["INCOME"] == filters.income){
-				totaldata[0] == metadata[i]["number"];
-				totaldata[1] == metadata[i]["HERYR"];
-				totaldata[2] == metadata[i]["HERMON"];
+				totaldata[0] = metadata[i]["number"];
+				totaldata[1] = metadata[i]["HERYR"];
+				totaldata[2] = metadata[i]["HERMON"];
 				break;
 			}
 		}

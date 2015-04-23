@@ -29,13 +29,11 @@ TotalVis = function(_parentElement, _data, _metaData){
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 400 - this.margin.top - this.margin.bottom;
 
-
+    console.log(this.metaData);
     console.log(to_total(this.metaData));
 
     // console.log(to_total(this.metaData));
     // console.log(filters);
-
-
 
     this.initVis();
 
@@ -104,12 +102,6 @@ TotalVis.prototype.wrangleData= function(_filterFunction){
     // displayData should hold the data which is visualized
     this.displayData = this.filterAndAggregate();
 
-    //// you might be able to pass some options,
-    //// if you don't pass options -- set the default options
-    //// the default is: var options = {filter: function(){return true;} }
-    //var options = _options || {filter: function(){return true;}};
-
-
 }
 
 
@@ -119,19 +111,8 @@ TotalVis.prototype.wrangleData= function(_filterFunction){
  */
 TotalVis.prototype.updateVis = function(){
 
-    // Dear JS hipster,
-    // you might be able to pass some options as parameter _option
-    // But it's not needed to solve the task.
-    // var options = _options || {};
 
-    var that = this;
-
-    // TODO: implement...
-    // TODO: ...update scales
-    // TODO: ...update graphs
-    //this.x.domain(this.displayData.map(function(d, i) { return i; }));
-    //this.y.domain([0, d3.max(function(d,i)that.displayData["number"])]);
-    
+    var that = this;    
 
     // y.domain will depend on whether or not we show total population
     this.y.domain(["PAST-MONTH", "PAST-YEAR", "TOTAL"]);
@@ -149,7 +130,7 @@ TotalVis.prototype.updateVis = function(){
     // updates graph
     // Data join
     var bar = this.svg.selectAll(".bar")
-      .data(this.displayData, function(d,i) { console.log(i);
+      .data(this.displayData, function(d,i) { 
         return d; });
 
     // Append new bar groups, if required
@@ -219,17 +200,6 @@ TotalVis.prototype.onSelectionChange= function (selectionStart, selectionEnd){
 
 }
 
-
-/*
-*
-* ==================================
-* From here on only HELPER functions
-* ==================================
-*
-* */
-
-
-
 /**
  * The aggregate function that creates the counts for each age for a given filter.
  * @param _filter - A filter can be, e.g.,  a function that is only true for data of a given time range
@@ -252,7 +222,3 @@ TotalVis.prototype.filterAndAggregate = function(_filter){
     return filtered;
 
 }
-
-
-
-

@@ -25,11 +25,12 @@
 
 
     <!-- add own vis classes-->
-    <script src = "js/jsonfunctions.js"></script>
+    <!-- // <script src = "js/jsonfunctions.js"></script> -->
     <script src = "js/totalvis.js"></script>
     <script src="js/countvis.js"></script>
     <script src="js/crimevis.js"></script>
     <script src="js/mhvis.js"></script>
+    <script src="js/form.js"></script>
 
 
 
@@ -111,16 +112,18 @@ body {
 
         </div>
 
-        <form>
+        <form name = "incomeForm" class = "iForm" id = "iForm">
             <p> Choose an income bracket:</p>
             <label> 
-                <input type="radio" name="income" value="income1" checked> Income 1</label>
+                <input type="radio" name="income" value="-1" checked> All incomes </label>
+            <label> 
+                <input type="radio" name="income" value="1"> Income 1</label>
             <label>
-                <input type="radio" name="income" value="income2"> Income 2</label>
+                <input type="radio" name="income" value="2"> Income 2</label>
             <label>
-                <input type="radio" name="income" value="income3"> Income 3</label>
+                <input type="radio" name="income" value="3"> Income 3</label>
             <label>
-                <input type="radio" name="income" value="income4"> Income 4</label>
+                <input type="radio" name="income" value="4"> Income 4</label>
         </form>
 
         <div class="row">
@@ -172,17 +175,27 @@ body {
             // call this function after Data is loaded, reformatted and bound to the variables
             var initVis = function(){
 
-                //TODO: Create an eventHandler  --> DONE :)
                 var MyEventHandler = new Object();
 
                 //TODO: Instantiate all Vis Objects here
 
-                var total_vis = new TotalVis(d3.select("#totalVis"), allData, metaData);
+                var total_vis = new TotalVis(d3.select("#totalVis"), allData, metaData, MyEventHandler);
 
-                var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData);
+                var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
-                var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData)
+                var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, MyEventHandler);
 
+                var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
+
+                // listen for a change to the income form
+                $(MyEventHandler).bind("formChanged", function(event, _income){
+                    console.log(_income);
+                    // set income filter
+                    filters.income = _income 
+                    crimeData = to_crime(allData);
+                    console.log(crimeData);
+                    cr_vis.onSelectionChange(crimeData);
+                });
 
                 // TODO: bind the eventHandler to the Vis Objects
                 // events will be created from the CountVis object (nothing to do here)
@@ -196,7 +209,6 @@ body {
                 });
 
                 */
-
             }
 
             // call this function after both files are loaded -- error should be "null" if no error
@@ -204,21 +216,8 @@ body {
 
                 if (!error) {
 
-                    //console.log(_allData);
-
-                    // make our data look nicer and more useful:
-                    // per Day we want to have an object looking like this:
-                    /*
-                    * {
-                    *   time: .. (should be a Date object)
-                    *   count: .. (number of all votes)
-                    *   prios: [..,..,..,...] (array of number of votes per priority -> array length =16)
-                    *   ages: [..,..,..,..] (array counts of votes per age 0-99)
-                    *
-                    * */
-
                     allData = _allData;
-<<<<<<< HEAD
+// <<<<<<< HEAD
 
                     
 
@@ -226,11 +225,13 @@ body {
 
                     
 
-=======
+// =======
                     metaData = _metaData;
+
                     crimeData = to_crime(allData);
+
                     mhData = to_mh(allData);
->>>>>>> 8a28a0890dbfe42dd0cbad59267083909d2d3dbe
+// >>>>>>> 8a28a0890dbfe42dd0cbad59267083909d2d3dbe
                     initVis();
                 }
             }
@@ -251,7 +252,6 @@ body {
             }
 
             startHere();
-
         })
     
      /**
@@ -269,10 +269,11 @@ body {
 
     var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2"];
 
+    // we're using -1 to signify that there is no parameter by which we want to filter. (we're using -1 instead of null, because we'll be assigning these variables ints when we DO want to filter by a parameter. If we then want to go back to null, javascript can't make an int null)
     var filters = {
-        income: null,
-        age: null,
-        sex: null
+        income: -1,
+        age: -1,
+        sex: -1
     }
 
     /* filter the data! I wrote this function to act on a single datum, and I call it in
@@ -282,12 +283,20 @@ body {
     rather filter the data all at once then just turn put this code into a for loop.
     */
     function bigfilter (d){
-        if((d["INCOME"] != filters.income && filters.income != null)
-            && (d["CATAG3"] != filters.age && filters.age != null)
-            && (d["IRSEX"] != filters.sex && filters.sex != null))
-            return false;
-        else
-            return true; 
+        // if all categories of filters are -1, don't filter anything and just return true
+        if(filters.income == -1 && filters.age == -1 && filters.sex == -1) {
+            return true
+        }
+
+        // else filter
+        else {
+            if((d["INCOME"] != filters.income)
+                && (d["CATAG3"] != filters.age)
+                && (d["IRSEX"] != filters.sex))
+                return false;
+            else
+                return true; 
+        }
     }
 
 
@@ -296,7 +305,7 @@ body {
         
         var totaldata = [0, 0, 0];
 
-        if(filters.income == null){
+        if(filters.income == -1){
             for(i in _metadata){
                 totaldata[0] += _metadata[i]["number"];
                 totaldata[1] += _metadata[i]["HERYR"];
@@ -308,9 +317,9 @@ body {
         else{
             for(i in _metadata){
                 if(_metadata[i]["INCOME"] == filters.income){
-                    totaldata[0] == _metadata[i]["number"];
-                    totaldata[1] == _metadata[i]["HERYR"];
-                    totaldata[2] == _metadata[i]["HERMON"];
+                    totaldata[0] = _metadata[i]["number"];
+                    totaldata[1] = _metadata[i]["HERYR"];
+                    totaldata[2] = _metadata[i]["HERMON"];
                     break;
                 }
             }
@@ -321,19 +330,21 @@ body {
     // returns array of number of heroin users fitting each crime category
     function to_crime(_data){
 
-        var crimedata = [0, 0, 0, 0, 0, 0];
+        var tempCrimeData = [0, 0, 0, 0, 0, 0];
+        console.log(_data);
 
         for(i in _data){
+            //console.log(bigfilter(_data[i]));
             if(bigfilter(_data[i])){
                 for(j in crimecats){
                     if(_data[i][crimecats[j]] == 1){
-                        crimedata[j] ++;
+                        tempCrimeData[j] ++;
                     }
                 }
             }
         }
 
-        return crimedata;
+        return tempCrimeData;
     }
 
     // returns array of number of heroin users fitting each mental health category
@@ -355,157 +366,15 @@ body {
         return mhdata;
     }
 
+    // returns value of income selection
+    function nowLayout () {
+        var x = document.forms["incomeForm"]["income"].value;
+        return x;
+    }
+
+    nowLayout();
+
     </script>
+
 </body>
-
-
-        <div class="row">
-            <div class="col-md-12" id="countVis">
-                <!-- TODO: delete placeholder svg element -->
-            </div>
-        </div>
-
-
-        </div>
-
-
-
-
-
-        </div>
-
-
-
-        <script>
-            $(function() { // this function is called after the HTML document is fully loaded
-
-                // variables keeping global knowledge of the data               
-
-                var allData = [];
-                var metaData = {};
-
-                var totalcats = ["number", "HERYR", "HERMON"];
-
-                var crimecats = ["BOOKED", "BKSRVIOL", "BKSMASLT", "BKDRVINF", "BKDRUG", "HERLAWTR"];
-
-                var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2"];
-
-                var filters = {
-                    income: null,
-                    age: null,
-                    sex: null
-                }
-
-                 function filter (d){
-                    if((d["INCOME"] != filters.income && filters.income != null)
-                        && (d["CATAG3"] != filters.age && filters.age != null)
-                        && (d["IRSEX"] != filters.sex && filters.sex != null))
-                        return false;
-                    else
-                        return true; 
-                }
-
-
-                 // returns array of length 3: population, heroin users in past year, heroin users in past month
-                function total (){
-                    
-                    var totaldata = [0, 0, 0];
-
-                    if(filters.income == null){
-                        for(i in metadata){
-                            totaldata[0] += metadata[i]["number"];
-                            totaldata[1] += metadata[i]["HERYR"];
-                            totaldata[2] += metadata[i]["HERMON"];
-                        }
-
-                    }
-
-                    else{
-                        for(i in metadata){
-                            if(metadata[i]["INCOME"] == filters.income){
-                                totaldata[0] == metadata[i]["number"];
-                                totaldata[1] == metadata[i]["HERYR"];
-                                totaldata[2] == metadata[i]["HERMON"];
-                                break;
-                            }
-                        }
-                    }
-
-                    return totaldata;
-                }
-
-
-                // returns array of number of heroin users fitting each crime category
-                function to_crime (){
-
-                    var crimedata = [0, 0, 0, 0, 0, 0];
-
-                    for(i in data){
-                        if(filter(data[i])){
-                            for(j in crimecats){
-                                if(data[i][crimecats[j]] == 1){
-                                    crimedata[j] ++;
-                                }
-                            }
-                        }
-                    }
-
-                    return crimedata;
-                }
-
-
-                 // returns array of number of heroin users fitting each mental health category
-                function to_mh(){
-
-                    var mhdata = [0, 0, 0];
-
-                    for(i in data){
-                        if(filter(data[i])){
-                            for(j in mhcats){
-                                if(data[i][mhcats[j]] == 1){
-                                    mhdata[j] ++;
-                                }
-                            }
-                        }
-                        
-                    }
-
-                    return mhdata;
-                }
-
-                var initVis = function() {
-
-                     //var MyEventHandler = new Object();
-
-
-                    //TODO: Instantiate all Vis Objects here
-                    //var count_vis = new CountVis(d3.select("#countVis"), allData, metaData, MyEventHandler);
-
-                    // TODO: bind the eventHandler to the Vis Objects
-
-                }
-
-                var dataLoaded = function(error, _allData, _metaData) {
-
-                    if (!error) {}
-
-                        initVis();
-                    }
-
-                var startHere = function(){
-                    queue()
-                        .defer(d3.json, "data/CS171_UsersOnly_JSON.json")
-                        .defer(d3.json, "data/CS171_metaData.json")
-                        .await(dataLoaded);
-
-                }
-                startHere();
-
-})
-
-
-        </script>
-</body>
-
-
 </html>
