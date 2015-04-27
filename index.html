@@ -300,9 +300,9 @@ body {
 
         // else filter
         else {
-            if((d["INCOME"] != filters.income)
-                && (d["CATAG3"] != filters.age)
-                && (d["IRSEX"] != filters.sex))
+            if((d["INCOME"] != filters.income && filters.income != -1)
+                || (d["CATAG3"] != filters.age && filters.age != -1)
+                || (d["IRSEX"] != filters.sex && filters.age != -1))
                 return false;
             else
                 return true; 
