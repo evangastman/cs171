@@ -78,7 +78,7 @@ MoneyVis.prototype.initVis = function(){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("number of crimes");;
+        //.text("number of crimes");;
 
     // filter, aggregate, modify data
     // this.wrangleData(null);
@@ -107,6 +107,7 @@ MoneyVis.prototype.wrangleData= function(_filterFunction){
 //  * the drawing function - should use the D3 selection, enter, exit
 //  */
 MoneyVis.prototype.updateVis = function() {
+
   var that = this;
     // updates scales
     this.y.domain(d3.extent(this.data, function(d) { return d; }));
@@ -123,7 +124,7 @@ MoneyVis.prototype.updateVis = function() {
 
     // Data join
     var bar = this.svg.selectAll(".bar")
-      .data(this.data, function(d) { return d; });
+      .data(this.metaData, function(d) { return d; });
 
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");

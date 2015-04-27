@@ -173,6 +173,10 @@ body {
             var metaData = {};
             var crimeData = [];
             var mhData = [];
+
+            // metaData is for the 4-bracket system. metaData2 is for the 7-bracket system
+            var metaData2 = [];
+
             // variable storing all the people surveyed
             var totalPop;
 
@@ -189,7 +193,7 @@ body {
 
                 //var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), MyEventHandler);
 
-                var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), totalPop, MyEventHandler);
+                var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), to_total(metaData2), totalPop, MyEventHandler);
 
                 var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
@@ -229,7 +233,7 @@ body {
             }
 
             // call this function after both files are loaded -- error should be "null" if no error
-            var dataLoaded = function (error, _allData, _metaData) {
+            var dataLoaded = function (error, _allData, _metaData, _metaData2) {
 
                 if (!error) {
 
@@ -240,6 +244,8 @@ body {
                     //remember total people surveyed
                     totalPop = to_total(metaData)[0];
                     console.log(to_total(metaData));
+
+                    metaData2 = _metaData2;
 
                     crimeData = to_crime(allData);
 
@@ -257,10 +263,11 @@ body {
                 queue()
                     .defer(d3.json, "data/CS171_UsersOnly_JSON.json")
                     .defer(d3.json, "data/CS171_metaData.json")
+                    .defer(d3.json, "data/CS171_metaData_7brackets.json")
                     .await(storeDataInObjs)
 
-                function storeDataInObjs(e, m, p){
-                    dataLoaded(e, m, p)
+                function storeDataInObjs(e, users, meta, meta2){
+                    dataLoaded(e, users, meta, meta2)
                 }
             }
 
@@ -282,6 +289,9 @@ body {
 
     var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2"];
 
+    // note: remember to change this when changing bracket_sys
+    var moneycats = ["0-20K", "20-50K", "50-75K", "75K+"];
+
     // we're using -1 to signify that there is no parameter by which we want to filter. (we're using -1 instead of null, because we'll be assigning these variables ints when we DO want to filter by a parameter. If we then want to go back to null, javascript can't make an int null)
     var filters = {
         income: -1,
@@ -300,13 +310,18 @@ body {
     */
     function bigfilter (d){
         // if all categories of filters are -1, don't filter anything and just return true
+        if(bracket_sys==1)
+            var income_var = "INCOME"
+        else
+            var income_var = "IRFAMIN3"
+
         if(filters.income == -1 && filters.age == -1 && filters.sex == -1) {
             return true
         }
 
         // else filter
         else {
-            if((d["INCOME"] != filters.income && filters.income != -1)
+            if((d[income_var] != filters.income && filters.income != -1)
                 || (d["CATAG3"] != filters.age && filters.age != -1)
                 || (d["IRSEX"] != filters.sex && filters.age != -1))
                 return false;
@@ -395,6 +410,8 @@ body {
         for(i in _metadata){
             moneydata[i] = _metadata[i]["avg"];
         }
+
+        return moneydata;
 
     }
 

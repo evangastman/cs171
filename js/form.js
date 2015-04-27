@@ -17,6 +17,7 @@ Form.prototype.nowDisplay = function () {
   var that = this;
 
   var x = this.parentElement[0][0]["income"].value;
+  console.log(x);
   return x;
 }
 

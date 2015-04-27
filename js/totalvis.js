@@ -15,13 +15,14 @@
  *
  * */
 
-TotalVis = function(_parentElement, _data, _metaData, _totalPop){
+TotalVis = function(_parentElement, _data, _metaData, _metaData2, _totalPop){
 
     // NOTE: THIS VIS ONLY USES THE METADATA
 
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+    this.metaData2 = _metaData2;
     this.totalPop = _totalPop;
 
     this.displayData = [];
