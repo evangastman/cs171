@@ -132,17 +132,21 @@ body {
         </div>
 
         <div class="row">
+            <div class="col-md-8" id="moneyVis">
+                MONEYVIS GOES HERE
+        </div>
+
+        <div class="row">
             <div class="col-md-8" id="totalVis">
                 <svg width="650" height="440">
                     <text x="50" y="50"></text>
                 </svg>
             </div>
             <div class="row">
-            <div class="col-md-4" id="mhVis">
-                <h2> Mental Health </h2>
+                <div class="col-md-4" id="mhVis">
+                    <h2> Mental Health </h2>
+                </div>
             </div>
-        </div>
-
         </div>
 
         <div class="row">
@@ -182,6 +186,8 @@ body {
                 var MyEventHandler = new Object();
 
                 //TODO: Instantiate all Vis Objects here
+
+                //var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), MyEventHandler);
 
                 var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), totalPop, MyEventHandler);
 
@@ -235,9 +241,6 @@ body {
                     totalPop = to_total(metaData)[0];
                     console.log(to_total(metaData));
 
-
-
-
                     crimeData = to_crime(allData);
 
                     mhData = to_mh(allData);
@@ -285,6 +288,9 @@ body {
         age: -1,
         sex: -1
     }
+
+    // the dataset provides us with two systems of bracketing. system 1 has 4 brackets; system 2 has 7.
+    var bracket_sys = 1;
 
     /* filter the data! I wrote this function to act on a single datum, and I call it in
     the to_crime and to_mh functions. I think this is more efficient than filtering all
@@ -373,6 +379,23 @@ body {
         }
 
         return mhdata;
+    }
+
+    // returns array of "average" income levels for each income bracket
+        // for example, in the bracket [0, 20K), the average is 10
+    // I will probbaly need to create a second metadata file for this
+        // (one for each system of bracketing)
+    function to_money(_metadata){
+
+        if(bracket_sys==1)
+            var moneydata = [0, 0, 0, 0];
+        else
+            var moneydata = [0, 0, 0, 0, 0, 0, 0];
+
+        for(i in _metadata){
+            moneydata[i] = _metadata[i]["avg"];
+        }
+
     }
 
     // returns value of income selection
