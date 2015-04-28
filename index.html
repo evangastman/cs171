@@ -30,6 +30,7 @@
     <script src="js/countvis.js"></script>
     <script src="js/crimevis.js"></script>
     <script src="js/mhvis.js"></script>
+    <script src="js/moneyvis.js"></script>
     <script src="js/form.js"></script>
 
 
@@ -112,6 +113,17 @@ body {
 
         </div>
 
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-sm btn-primary" id="all-incomes-btn"> <span class="glyphicon glyphicon-usd"></span> all incomes </button>
+            </div>
+        </div>
+
+        <label>
+        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked>4 brackets</label>
+        <label>
+        <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
+<!--
         <form name = "incomeForm" class = "iForm" id = "iForm">
             <p> Choose an income bracket:</p>
             <label> 
@@ -126,9 +138,19 @@ body {
                 <input type="radio" name="income" value="4"> Income 4</label>
         </form>
 
+    --> 
+
         <div class="row">
             <div class="col-md-2">
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8" id="moneyVis">
+                <h3>MONEYVIS GOES HERE (and totalVis should be to its right)</h3>
+                <svg width="650" height="20">
+                    <text x="50" y="50"></text>
+                </svg>
         </div>
 
         <div class="row">
@@ -138,12 +160,50 @@ body {
                     <text x="50" y="50"></text>
                 </svg>
             </div>
-            <div class="row">
-            <div class="col-md-4" id="mhVis">
-                <h2> Mental Health </h2>
-            </div>
-        </div>
 
+
+
+
+
+
+            </br>
+
+            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+            <label>
+            <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
+            <label>
+            <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
+            <label>
+            <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
+        </br>
+
+            </br>
+
+            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+            <label>
+            <input type="radio" id="age" name="age" class="age" value="1" onclick="filters.age=1;">12-17</label>
+            <label>
+            <input type="radio" id="age" name="age" class="age" value="2" onclick="filters.age=2;">18-25</label>
+            <label>
+                <input type="radio" id="age" name="age" class="age" value="3" onclick="filters.age=3;">26-34</label>
+            <label>
+                <input type="radio" id="age" name="age" class="age" value="4" onclick="filters.age=4;">35-49</label>
+            <label>
+                <input type="radio" id="age" name="age" class="age" value="5" onclick="filters.age=5;">50+</label>
+            <label>
+            <input type="radio" id="age" name="age" class="age" value="-1" onclick="filters.age=-1;" checked>all</label>
+        </br>
+
+
+
+
+
+
+            <div class="row">
+                <div class="col-md-4" id="mhVis">
+                    <h2> Mental Health </h2>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -170,9 +230,12 @@ body {
             var metaData = {};
             var crimeData = [];
             var mhData = [];
+
+            // metaData is for the 4-bracket system. metaData2 is for the 7-bracket system
+            var metaData2 = [];
+
             // variable storing all the people surveyed
             var totalPop;
-
 
             // call this function after Data is loaded, reformatted and bound to the variables
             var initVis = function(){
@@ -184,48 +247,76 @@ body {
 
                 //TODO: Instantiate all Vis Objects here
 
-                var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), totalPop, MyEventHandler);
+                var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), to_money(metaData2), MyEventHandler);
 
-                var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
+                var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), to_total(metaData2), totalPop, MyEventHandler);
+
+                var crime_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
                 var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, MyEventHandler);
 
                 var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
 
-                // listen for a change to the income form
-                $(MyEventHandler).bind("formChanged", function(event, _income){
-                    console.log(_income);
-                    // set income filter
-                    filters.income = _income 
+                // reset to include all income levels
+                d3.select("#all-incomes-btn").on("click", function(){
+                    console.log("Oy!");
+                    filters.income = -1;
                     crimeData = to_crime(allData);
-                    //allData = to_total(that.metaData);
-                    console.log(crimeData);
-                    console.log(metaData);
-                    //console.log(allData);
-                    cr_vis.onSelectionChange(crimeData);
+                    crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
                     console.log(mhData);
                 });
 
+                // rebracketing
+                d3.selectAll(".brack").on("click", function(){
+                    filters.income = -1;
 
+                    if(bracket_sys == 1)
+                        var md = metaData;
+                    else
+                        var md = metaData2;
+
+                    money_vis.onSelectionChange(to_money(md));
+                    crime_vis.onSelectionChange(to_crime(allData));
+                    total_vis.onSelectionChange(to_total(md));
+                    //mh_vis.onSelectionChange(to_mh(allData));
+                });
                 
+                // filtering by income (by clicking on a money stack)
+                $(MyEventHandler).bind("barClicked", function(event, i){
+                    filters.income = i;
 
-                // TODO: bind the eventHandler to the Vis Objects
-                // events will be created from the CountVis object (nothing to do here)
-                // events will be consumed by the PrioVis and AgeVis object (binding should happen here)
+                    if(bracket_sys == 1)
+                        var md = metaData;
+                    else
+                        var md = metaData2;
 
-                /*
+                    crimeData = to_crime(allData);
+                    crime_vis.onSelectionChange(crimeData);
+                    total_vis.onSelectionChange(to_total(md));
+                    //mh_vis.onSelectionChange(to_mh(allData));
+                })
 
-                $(MyEventHandler).bind("selectionChanged", function(event, extra){
-                    total_vis.onSelectionChange(extra.s, extra.e);
-                    age_vis.onSelectionChange(extra.s, extra.e);
+                // filter by sex
+                d3.selectAll(".sex").on("click", function(){
+                    //console.log(filters);
+                    crimeData = to_crime(allData);
+                    crime_vis.onSelectionChange(crimeData);
+                    //mh_vis.onSelectionChange(to_mh(allData));
                 });
 
-                */
+                // filter by age
+                d3.selectAll(".age").on("click", function(){
+                    //console.log(filters);
+                    crimeData = to_crime(allData);
+                    crime_vis.onSelectionChange(crimeData);
+                    //mh_vis.onSelectionChange(to_mh(allData));
+                });
+
             }
 
             // call this function after both files are loaded -- error should be "null" if no error
-            var dataLoaded = function (error, _allData, _metaData) {
+            var dataLoaded = function (error, _allData, _metaData, _metaData2) {
 
                 if (!error) {
 
@@ -237,8 +328,7 @@ body {
                     totalPop = to_total(metaData)[0];
                     console.log(to_total(metaData));
 
-
-
+                    metaData2 = _metaData2;
 
                     crimeData = to_crime(allData);
 
@@ -256,14 +346,16 @@ body {
                 queue()
                     .defer(d3.json, "data/CS171_UsersOnly_JSON.json")
                     .defer(d3.json, "data/CS171_metaData.json")
+                    .defer(d3.json, "data/CS171_metaData_7brackets.json")
                     .await(storeDataInObjs)
 
-                function storeDataInObjs(e, m, p){
-                    dataLoaded(e, m, p)
+                function storeDataInObjs(e, users, meta, meta2){
+                    dataLoaded(e, users, meta, meta2)
                 }
             }
 
             startHere();
+
         })
     
      /**
@@ -281,12 +373,19 @@ body {
 
     var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2"];
 
+    // note: remember to change this when changing bracket_sys
+    var moneycats = ["0-20K", "20-50K", "50-75K", "75K+"];
+    var moneycats2 = ["0-10K", "10-20K", "20-30K", "30-40K", "40-50K", "50-75K", "75K+"];
+
     // we're using -1 to signify that there is no parameter by which we want to filter. (we're using -1 instead of null, because we'll be assigning these variables ints when we DO want to filter by a parameter. If we then want to go back to null, javascript can't make an int null)
     var filters = {
         income: -1,
         age: -1,
         sex: -1
     }
+
+    // the dataset provides us with two systems of bracketing. system 1 has 4 brackets; system 2 has 7.
+    var bracket_sys = 1;
 
     /* filter the data! I wrote this function to act on a single datum, and I call it in
     the to_crime and to_mh functions. I think this is more efficient than filtering all
@@ -296,16 +395,22 @@ body {
     */
     function bigfilter (d){
         // if all categories of filters are -1, don't filter anything and just return true
+        if(bracket_sys==1)
+            var income_var = "INCOME"
+        else
+            var income_var = "IRFAMIN3"
+
         if(filters.income == -1 && filters.age == -1 && filters.sex == -1) {
-            return true
+            return true;
         }
 
         // else filter
         else {
-            if((d["INCOME"] != filters.income)
-                && (d["CATAG3"] != filters.age)
-                && (d["IRSEX"] != filters.sex))
+            if((d[income_var] != filters.income && filters.income != -1)
+                || (d["CATAG3"] != filters.age && filters.age != -1)
+                || (d["IRSEX"] != filters.sex && filters.sex != -1))
                 return false;
+
             else
                 return true; 
         }
@@ -355,6 +460,8 @@ body {
             }
         }
 
+        console.log(tempCrimeData);
+
         return tempCrimeData;
     }
 
@@ -377,13 +484,33 @@ body {
         return mhdata;
     }
 
+    // returns array of "average" income levels for each income bracket
+        // for example, in the bracket [0, 20K), the average is 10
+    // I will probbaly need to create a second metadata file for this
+        // (one for each system of bracketing)
+    function to_money(_metadata){
+
+        if(bracket_sys==1)
+            var moneydata = [0, 0, 0, 0];
+        else
+            var moneydata = [0, 0, 0, 0, 0, 0, 0];
+
+        for(i in _metadata){
+            moneydata[i] = _metadata[i]["avg"];
+        }
+
+        return moneydata;
+
+    }
+
+    /*
     // returns value of income selection
     function nowLayout () {
         var x = document.forms["incomeForm"]["income"].value;
         return x;
     }
 
-    nowLayout();
+    nowLayout(); */
 
     </script>
 

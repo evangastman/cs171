@@ -1,11 +1,17 @@
 /*
- 	Hi! this makes a bar chart for our crime data
+  MONEYVIS.js
+
+ 	Make$ a $tyli$h dollar bill$ bar chart for income bracket $election
 */
 
-CrimeVis = function(_parentElement, _data, _metaData, _eventHandler){
+MoneyVis = function(_parentElement, _data, _metaData, _metaData2, _eventHandler){
+
+  // LIKE TOTALVIS, THIS ONLY USES THE METADATA
+
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+    this.metaData2 = _metaData2;
     this.eventHandler = _eventHandler;
     this.displayData = [];
     // global variable to store original data, to build bar chart of total
@@ -24,7 +30,7 @@ CrimeVis = function(_parentElement, _data, _metaData, _eventHandler){
 /**
  * Method that sets up the SVG and the variables
  */
-CrimeVis.prototype.initVis = function(){
+MoneyVis.prototype.initVis = function(){
 
     var that = this; // read about the this
 
@@ -67,14 +73,18 @@ CrimeVis.prototype.initVis = function(){
     //     .style("text-anchor", "end")
     //     .text("type of arrest");;
 
+    ;
+
   this.svg.append("g")
       .attr("class", "y axis")
        .append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
         .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("number of crimes");;
+        .style("text-anchor", "end");
+
+  console.log(this.svg);
+
 
     // filter, aggregate, modify data
     // this.wrangleData(null);
@@ -91,7 +101,9 @@ CrimeVis.prototype.initVis = function(){
 //  * Method to wrangle the data. In this case it takes an options object
 //  * @param _filterFunction - a function that filters data or "null" if none
 //  */
-CrimeVis.prototype.wrangleData= function(_filterFunction){
+
+// NOTE: at the moment, this is not being called at all!
+MoneyVis.prototype.wrangleData= function(_filterFunction){
 
     // displayData should hold the data which is visualized
     this.displayData = this.filterAndAggregate(_filterFunction);
@@ -102,15 +114,22 @@ CrimeVis.prototype.wrangleData= function(_filterFunction){
 // /**
 //  * the drawing function - should use the D3 selection, enter, exit
 //  */
-CrimeVis.prototype.updateVis = function() {
+MoneyVis.prototype.updateVis = function() {
+
   var that = this;
+
+  if(this.metaData.length == 4)
+    var xlabels = moneycats;
+  else
+    var xlabels = moneycats2;
+
     // updates scales
-    this.y.domain(d3.extent(this.data, function(d) { return d; }));
-    this.x.domain(this.data.map(function(d, i) { return i }));
+    this.y.domain(d3.extent(this.metaData, function(d) { return d; }));
+    this.x.domain(this.metaData.map(function(d, i) { return i }));
 
     // updates axis
-    this.svg.select(".y.axis")
-        .call(this.yAxis);
+    //this.svg.select(".y.axis")
+        //.call(this.yAxis);
 
     this.svg.select(".x.axis")
     	.call(this.xAxis)
@@ -119,13 +138,23 @@ CrimeVis.prototype.updateVis = function() {
 
     // Data join
     var bar = this.svg.selectAll(".bar")
-      .data(this.data, function(d) { return d; });
+      .data(this.metaData, function(d) { return d; });
 
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");
 
     // Append a rect and a text only for the Enter set (new g)
     bar_enter.append("rect");
+
+    bar_enter.append("image")
+      .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("preserveAspectRatio", "none")
+      //.attr("width", 90)
+      //.attr("height", 200);
+
+    //bar_enter.append("image");
     bar_enter.append("text");
 
     // Add attributes (position) to all bars
@@ -148,7 +177,24 @@ CrimeVis.prototype.updateVis = function() {
       	return that.height - that.y(d)})
       .transition()
       .attr("width", function(d, i) { 
-          return that.x.rangeBand(i);
+          return that.x.rangeBand(i);})
+      .attr("fill", "url(#image)");
+      ;
+    
+
+    bar.select("image")
+      .attr("y", function(d){
+        return that.y(d)
+      })
+      .attr("width", function(d, i){
+        return that.x.rangeBand(i);})
+      .attr("height", function(d){
+        return that.height - that.y(d)})
+      ; 
+
+    bar.select("image")
+      .on("click", function(d, i){
+        that.barclicked(i + 1);
       });
 
     bar.select("text")
@@ -156,7 +202,7 @@ CrimeVis.prototype.updateVis = function() {
       .attr("x", 0)
       .attr("text-anchor", "middle")
       .attr("transform", function(d,i) {return "translate (" + that.x.rangeBand(i)/2 + "," + (that.height + 10) + ")"; })
-      .text(function(d, i) {return crimecats[i]; })
+      .text(function(d, i) {return xlabels[i]; })
       .attr("class", "type-label")
       .attr("dy", ".35em")
 }
@@ -167,16 +213,29 @@ CrimeVis.prototype.updateVis = function() {
 //  * be defined here.
 //  * @param selection
 //  */
-CrimeVis.prototype.onSelectionChange= function (filteredData){
+MoneyVis.prototype.onSelectionChange= function (filteredData){
+
+    console.log(filteredData);
+
     // set data to be the filtered data
-    this.data = filteredData
+    this.data = filteredData;
+
+    this.metaData = filteredData;
+
+    //if(bracket_sys == 2)
+      //this.metaData = this.metaData2;
 
     // update the bar chart
     this.updateVis();
 }
 
-// huh???
-CrimeVis.prototype.filterAndAggregate = function(_filter){
+MoneyVis.prototype.barclicked = function(i){
+  $(this.eventHandler).trigger("barClicked", i);
+}
+
+
+// NOTE: at the moment, this is not being called at all!
+MoneyVis.prototype.filterAndAggregate = function(_filter){
 
 
     // Set filter to a function that accepts all items
