@@ -73,39 +73,6 @@ MoneyVis.prototype.initVis = function(){
     //     .style("text-anchor", "end")
     //     .text("type of arrest");;
 
-    /*
-  this.svg.append("defs")
-    .append("pattern")
-      .attr("id", "image")
-      .attr("patternUnits", "userSpaceOnUse")
-      .append("image")
-        .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg")
-        .attr("x", 0)
-        .attr("y", 0); 
-
-  this.svg.append("defs")
-    .append('pattern')
-    .attr('id', 'image')
-
-    .attr('patternUnits', 'userSpaceOnUse')
-    .attr("patternContentUnits", "objectBoundingBox")
-    .attr('width', 1)
-    .attr('height', 1)
-  .append("image")
-        .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg") */
-
-        
-
-/*
-    .attr('patternUnits', 'userSpaceOnUse')
-    .attr("patternContentUnits", "objectBoundingBox")
-    .attr('width', 1)
-    .attr('height', 1)
-  .append('path')
-    .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
-    .attr('stroke', '#000000')
-
-*/
     ;
 
   this.svg.append("g")
@@ -213,6 +180,7 @@ MoneyVis.prototype.updateVis = function() {
           return that.x.rangeBand(i);})
       .attr("fill", "url(#image)");
       ;
+    
 
     bar.select("image")
       .attr("y", function(d){
@@ -222,31 +190,12 @@ MoneyVis.prototype.updateVis = function() {
         return that.x.rangeBand(i);})
       .attr("height", function(d){
         return that.height - that.y(d)})
-      ;
-
-  /*
-
-    bar.select("rect")
-      .append("image")
-        .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg")
-        .attr("x", function(d, i){
-          return that.x(i);
-        })
-        .attr("y", function(d){
-          return that.y(d)
-        })
-        .attr("height", function(d){
-          return that.height - that.y(d)})
-        .attr("width", function(d, i){
-          return that.x.rangeBand(i);})
-        .attr("preserveAspectRatio", "none")
-        ;
+      ; 
 
     bar.select("image")
-      .attr(function(d){
-        return "xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg";});
-
-*/
+      .on("click", function(d, i){
+        that.barclicked(i + 1);
+      });
 
     bar.select("text")
       .attr("y", 0)
@@ -275,8 +224,8 @@ MoneyVis.prototype.onSelectionChange= function (filteredData){
     this.updateVis();
 }
 
-MoneyVis.prototype.barclicked = function(b){
-  $(this.eventHandler).trigger("barClicked", b);
+MoneyVis.prototype.barclicked = function(i){
+  $(this.eventHandler).trigger("barClicked", i);
 }
 
 

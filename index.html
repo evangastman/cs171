@@ -112,7 +112,7 @@ body {
             </div>
 
         </div>
-
+<!--
         <form name = "incomeForm" class = "iForm" id = "iForm">
             <p> Choose an income bracket:</p>
             <label> 
@@ -126,6 +126,8 @@ body {
             <label>
                 <input type="radio" name="income" value="4"> Income 4</label>
         </form>
+
+    --> 
 
         <div class="row">
             <div class="col-md-2">
@@ -205,6 +207,15 @@ body {
 
                 var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
 
+                
+                $(MyEventHandler).bind("barClicked", function(event, i){
+                    filters.income = i;
+                    crimeData = to_crime(allData);
+                    crime_vis.onSelectionChange(crimeData);
+                    total_vis.onSelectionChange(to_total(metaData));
+                }) 
+
+                /*
                 // listen for a change to the income form (TODO: this will happen when you click on a bill stack)
                 $(MyEventHandler).bind("formChanged", function(event, _income){
                     console.log(_income);
@@ -217,7 +228,7 @@ body {
                     //console.log(allData);
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
-                });
+                }); */
 
                 // TODO: also listen for change in income bracketing
 
