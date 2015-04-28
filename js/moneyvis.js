@@ -73,14 +73,51 @@ MoneyVis.prototype.initVis = function(){
     //     .style("text-anchor", "end")
     //     .text("type of arrest");;
 
+    /*
+  this.svg.append("defs")
+    .append("pattern")
+      .attr("id", "image")
+      .attr("patternUnits", "userSpaceOnUse")
+      .append("image")
+        .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg")
+        .attr("x", 0)
+        .attr("y", 0); 
+
+  this.svg.append("defs")
+    .append('pattern')
+    .attr('id', 'image')
+
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr("patternContentUnits", "objectBoundingBox")
+    .attr('width', 1)
+    .attr('height', 1)
+  .append("image")
+        .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg") */
+
+        
+
+/*
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr("patternContentUnits", "objectBoundingBox")
+    .attr('width', 1)
+    .attr('height', 1)
+  .append('path')
+    .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+    .attr('stroke', '#000000')
+
+*/
+    ;
+
   this.svg.append("g")
       .attr("class", "y axis")
        .append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
         .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        //.text("number of crimes");;
+        .style("text-anchor", "end");
+
+  console.log(this.svg);
+
 
     // filter, aggregate, modify data
     // this.wrangleData(null);
@@ -97,6 +134,8 @@ MoneyVis.prototype.initVis = function(){
 //  * Method to wrangle the data. In this case it takes an options object
 //  * @param _filterFunction - a function that filters data or "null" if none
 //  */
+
+// NOTE: at the moment, this is not being called at all!
 MoneyVis.prototype.wrangleData= function(_filterFunction){
 
     // displayData should hold the data which is visualized
@@ -122,8 +161,8 @@ MoneyVis.prototype.updateVis = function() {
     this.x.domain(this.metaData.map(function(d, i) { return i }));
 
     // updates axis
-    this.svg.select(".y.axis")
-        .call(this.yAxis);
+    //this.svg.select(".y.axis")
+        //.call(this.yAxis);
 
     this.svg.select(".x.axis")
     	.call(this.xAxis)
@@ -139,6 +178,16 @@ MoneyVis.prototype.updateVis = function() {
 
     // Append a rect and a text only for the Enter set (new g)
     bar_enter.append("rect");
+
+    bar_enter.append("image")
+      .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("preserveAspectRatio", "none")
+      //.attr("width", 90)
+      //.attr("height", 200);
+
+    //bar_enter.append("image");
     bar_enter.append("text");
 
     // Add attributes (position) to all bars
@@ -161,8 +210,43 @@ MoneyVis.prototype.updateVis = function() {
       	return that.height - that.y(d)})
       .transition()
       .attr("width", function(d, i) { 
-          return that.x.rangeBand(i);
-      });
+          return that.x.rangeBand(i);})
+      .attr("fill", "url(#image)");
+      ;
+
+    bar.select("image")
+      .attr("y", function(d){
+        return that.y(d)
+      })
+      .attr("width", function(d, i){
+        return that.x.rangeBand(i);})
+      .attr("height", function(d){
+        return that.height - that.y(d)})
+      ;
+
+  /*
+
+    bar.select("rect")
+      .append("image")
+        .attr("xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg")
+        .attr("x", function(d, i){
+          return that.x(i);
+        })
+        .attr("y", function(d){
+          return that.y(d)
+        })
+        .attr("height", function(d){
+          return that.height - that.y(d)})
+        .attr("width", function(d, i){
+          return that.x.rangeBand(i);})
+        .attr("preserveAspectRatio", "none")
+        ;
+
+    bar.select("image")
+      .attr(function(d){
+        return "xlink:href", "http://cliparts.co/cliparts/6ir/ooq/6irooq65T.jpg";});
+
+*/
 
     bar.select("text")
       .attr("y", 0)
@@ -191,6 +275,12 @@ MoneyVis.prototype.onSelectionChange= function (filteredData){
     this.updateVis();
 }
 
+MoneyVis.prototype.barclicked = function(b){
+  $(this.eventHandler).trigger("barClicked", b);
+}
+
+
+// NOTE: at the moment, this is not being called at all!
 MoneyVis.prototype.filterAndAggregate = function(_filter){
 
 
