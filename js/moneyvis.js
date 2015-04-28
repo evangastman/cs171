@@ -214,11 +214,16 @@ MoneyVis.prototype.updateVis = function() {
 //  * @param selection
 //  */
 MoneyVis.prototype.onSelectionChange= function (filteredData){
-    // set data to be the filtered data
-    this.data = filteredData
 
-    if(bracket_sys == 2)
-      this.metaData = this.metaData2;
+    console.log(filteredData);
+
+    // set data to be the filtered data
+    this.data = filteredData;
+
+    this.metaData = filteredData;
+
+    //if(bracket_sys == 2)
+      //this.metaData = this.metaData2;
 
     // update the bar chart
     this.updateVis();

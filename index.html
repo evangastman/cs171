@@ -118,6 +118,11 @@ body {
                 <button class="btn btn-sm btn-primary" id="all-incomes-btn"> <span class="glyphicon glyphicon-usd"></span> all incomes </button>
             </div>
         </div>
+
+        <label>
+        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked>4 brackets</label>
+        <label>
+        <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
 <!--
         <form name = "incomeForm" class = "iForm" id = "iForm">
             <p> Choose an income bracket:</p>
@@ -192,7 +197,6 @@ body {
             // variable storing all the people surveyed
             var totalPop;
 
-
             // call this function after Data is loaded, reformatted and bound to the variables
             var initVis = function(){
                     console.log(allData);
@@ -220,13 +224,36 @@ body {
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
                 });
+
+                d3.selectAll(".brack").on("click", function(){
+                    filters.income = -1;
+
+                    if(bracket_sys == 1)
+                        var md = metaData;
+                    else
+                        var md = metaData2;
+
+                    money_vis.onSelectionChange(to_money(md));
+                    crime_vis.onSelectionChange(to_crime(allData));
+                    total_vis.onSelectionChange(to_total(md));
+                });
                 
                 $(MyEventHandler).bind("barClicked", function(event, i){
                     filters.income = i;
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
-                }) 
+                })
+
+                /*
+                function rebracket(){
+                    filters.income = -1;
+                    money_vis.onSelectionChange(to_money(metaData));
+                    crime_vis.onSelectionChange(to_crime(allData));
+                    total_vis.onSelectionChange(to_total(metaData));
+
+                }
+                */
 
                 /*
                 // listen for a change to the income form (TODO: this will happen when you click on a bill stack)
@@ -322,7 +349,7 @@ body {
 
     // note: remember to change this when changing bracket_sys
     var moneycats = ["0-20K", "20-50K", "50-75K", "75K+"];
-    var moneycsts2 = ["0-10K", "10-20K", "20-30K", "30-40K", "50-75K", "75K+"];
+    var moneycats2 = ["0-10K", "10-20K", "20-30K", "30-40K", "40-50K", "50-75K", "75K+"];
 
     // we're using -1 to signify that there is no parameter by which we want to filter. (we're using -1 instead of null, because we'll be assigning these variables ints when we DO want to filter by a parameter. If we then want to go back to null, javascript can't make an int null)
     var filters = {
