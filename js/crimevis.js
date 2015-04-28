@@ -2,10 +2,11 @@
  	Hi! this makes a bar chart for our crime data
 */
 
-CrimeVis = function(_parentElement, _data, _metaData){
+CrimeVis = function(_parentElement, _data, _metaData, _eventHandler){
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+    this.eventHandler = _eventHandler;
     this.displayData = [];
     // global variable to store original data, to build bar chart of total
     this.origData = [];
@@ -174,6 +175,7 @@ CrimeVis.prototype.onSelectionChange= function (filteredData){
     this.updateVis();
 }
 
+// huh???
 CrimeVis.prototype.filterAndAggregate = function(_filter){
 
 

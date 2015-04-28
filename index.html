@@ -133,7 +133,10 @@ body {
 
         <div class="row">
             <div class="col-md-8" id="moneyVis">
-                MONEYVIS GOES HERE
+                <h3>MONEYVIS GOES HERE (and totalVis should be to its right)</h3>
+                <svg width="650" height="440">
+                    <text x="50" y="50"></text>
+                </svg>
         </div>
 
         <div class="row">
@@ -191,17 +194,17 @@ body {
 
                 //TODO: Instantiate all Vis Objects here
 
-                //var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), MyEventHandler);
+                var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), to_money(metaData2), MyEventHandler);
 
                 var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), to_total(metaData2), totalPop, MyEventHandler);
 
-                var cr_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
+                var crime_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
                 var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, MyEventHandler);
 
                 var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
 
-                // listen for a change to the income form
+                // listen for a change to the income form (TODO: this will happen when you click on a bill stack)
                 $(MyEventHandler).bind("formChanged", function(event, _income){
                     console.log(_income);
                     // set income filter
@@ -211,9 +214,11 @@ body {
                     console.log(crimeData);
                     console.log(metaData);
                     //console.log(allData);
-                    cr_vis.onSelectionChange(crimeData);
+                    crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
                 });
+
+                // TODO: also listen for change in income bracketing
 
 
                 
@@ -291,6 +296,7 @@ body {
 
     // note: remember to change this when changing bracket_sys
     var moneycats = ["0-20K", "20-50K", "50-75K", "75K+"];
+    var moneycsts2 = ["0-10K", "10-20K", "20-30K", "30-40K", "50-75K", "75K+"];
 
     // we're using -1 to signify that there is no parameter by which we want to filter. (we're using -1 instead of null, because we'll be assigning these variables ints when we DO want to filter by a parameter. If we then want to go back to null, javascript can't make an int null)
     var filters = {

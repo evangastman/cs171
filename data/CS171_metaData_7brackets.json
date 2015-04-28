@@ -26,7 +26,7 @@
 	{
 		"INCOME":4,
 		"range": "30, 40",
-		"avg": 90,
+		"avg": 35,
 		"number":5686,
 		"HERYR":16,
 	    "HERMON":18
@@ -34,7 +34,7 @@
 	{
 		"INCOME":5,
 		"range": "40, 50",
-		"avg": 63,
+		"avg": 45,
 		"number":5693,
 		"HERYR":16,
 	    "HERMON":11
@@ -50,7 +50,7 @@
 	{
 		"INCOME":7,
 		"range": "75, inf",
-		"avg": 63,
+		"avg": 90,
 		"number":15410,
 		"HERYR":43,
 	    "HERMON":11

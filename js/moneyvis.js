@@ -4,13 +4,15 @@
  	Make$ a $tyli$h dollar bill$ bar chart for income bracket $election
 */
 
-MoneyVis = function(_parentElement, _data, _metaData){
+MoneyVis = function(_parentElement, _data, _metaData, _metaData2, _eventHandler){
 
   // LIKE TOTALVIS, THIS ONLY USES THE METADATA
 
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+    this.metaData2 = _metaData2;
+    this.eventHandler = _eventHandler;
     this.displayData = [];
     // global variable to store original data, to build bar chart of total
     this.origData = [];
@@ -109,9 +111,15 @@ MoneyVis.prototype.wrangleData= function(_filterFunction){
 MoneyVis.prototype.updateVis = function() {
 
   var that = this;
+
+  if(this.metaData.length == 4)
+    var xlabels = moneycats;
+  else
+    var xlabels = moneycats2;
+
     // updates scales
-    this.y.domain(d3.extent(this.data, function(d) { return d; }));
-    this.x.domain(this.data.map(function(d, i) { return i }));
+    this.y.domain(d3.extent(this.metaData, function(d) { return d; }));
+    this.x.domain(this.metaData.map(function(d, i) { return i }));
 
     // updates axis
     this.svg.select(".y.axis")
@@ -161,7 +169,7 @@ MoneyVis.prototype.updateVis = function() {
       .attr("x", 0)
       .attr("text-anchor", "middle")
       .attr("transform", function(d,i) {return "translate (" + that.x.rangeBand(i)/2 + "," + (that.height + 10) + ")"; })
-      .text(function(d, i) {return crimecats[i]; })
+      .text(function(d, i) {return xlabels[i]; })
       .attr("class", "type-label")
       .attr("dy", ".35em")
 }
@@ -175,6 +183,9 @@ MoneyVis.prototype.updateVis = function() {
 MoneyVis.prototype.onSelectionChange= function (filteredData){
     // set data to be the filtered data
     this.data = filteredData
+
+    if(bracket_sys == 2)
+      this.metaData = this.metaData2;
 
     // update the bar chart
     this.updateVis();
