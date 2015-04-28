@@ -1,0 +1,88 @@
+body{
+	background-color: #fffffe;
+}
+
+#container img{
+
+	padding-top: 100px;
+	padding-left: 100px;
+
+}
+
+.pill{
+	position: absolute;
+	font-size: 70px;
+	text-align: right;
+	font-family: Trebuchet, sans-serif;
+	
+
+
+}
+
+.pill:hover{
+	background-color: lightgrey;
+}
+
+.pill img{
+	float:left;
+	zoom: 80%;
+
+}
+
+.pill a, p{
+	float:right;
+	color:black;
+}
+
+#p_video{
+	
+	left:1000px;
+	top: 700px;
+
+}
+
+#p_video img{
+
+	transform: rotate(-100deg);
+
+}
+
+
+
+#p_git{
+	position: absolute;
+	left:1200px;
+	top: 1000px;
+}
+
+#p_git img{
+
+	transform: rotate(-60deg);
+}
+
+#p_process{
+	position: absolute;
+	left:1400px;
+	top: 1300px;
+}
+
+#p_vis{
+	position: absolute;
+	left:1650px;
+	top: 1600px;
+}
+
+#p_vis img{
+
+	transform: rotate(50deg);
+}
+
+#description{
+	text-align: center;
+	position: absolute;
+	right: 100px;
+	top: 10px;
+	font-size: 40px;
+	font-family: Trebuchet, sans-serif;
+
+}
