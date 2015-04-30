@@ -2,10 +2,11 @@
 // 	Hi! this makes a pie chart for our mental health data
 // */
 
-mhVis = function(_parentElement, _data, _metaData){
+mhVis = function(_parentElement, _data, _metaData, _eventHandler){
     this.parentElement = _parentElement;
     this.data = _data;
     this.metaData = _metaData;
+    this.eventHandler = _eventHandler;
     this.displayData = [];
 
     // TODO: define all constants here
