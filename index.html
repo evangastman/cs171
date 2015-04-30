@@ -31,6 +31,7 @@
     <script src="js/crimevis.js"></script>
     <script src="js/mhvis.js"></script>
     <script src="js/form.js"></script>
+    <script src="js/moneyvis.js"></script>  
 
 
 
@@ -191,7 +192,7 @@ body {
 
                 //TODO: Instantiate all Vis Objects here
 
-                //var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), MyEventHandler);
+                var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), MyEventHandler);
 
                 var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), to_total(metaData2), totalPop, MyEventHandler);
 
@@ -207,12 +208,14 @@ body {
                     // set income filter
                     filters.income = _income 
                     crimeData = to_crime(allData);
+                    mhData = to_mh(allData);
                     //allData = to_total(that.metaData);
                     console.log(crimeData);
                     console.log(metaData);
                     //console.log(allData);
                     cr_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
+                    mh_vis.onSelectionChange(mhData);
                 });
 
 
