@@ -142,9 +142,13 @@ TotalVis.prototype.updateVis = function(){
 
     // updates axis
     this.svg.select(".x.axis")
+        .transition()
+        .duration(750)
         .call(this.xAxis);
 
     this.svg.select(".y.axis")
+        .transition()
+        .duration(750)
         .call(this.yAxis)
 
     // updates graph
@@ -165,7 +169,6 @@ TotalVis.prototype.updateVis = function(){
     // Add attributes (position) to all bars
     bar
       .attr("class", "bar")
-      .transition()
       //.attr("transform", function(d, i) { 
       	//return "translate(" + ((that.displayData.indexOf(d))*that.width/16) + "," + (that.height - that.y(d)) + ")"; })
 
@@ -175,6 +178,8 @@ TotalVis.prototype.updateVis = function(){
 
     // Update all inner rects and texts (both update and enter sets)
     bar.select("rect")
+      .transition()
+      .duration(750)
       .attr("x", function(d, i){
       	return 30;
       })

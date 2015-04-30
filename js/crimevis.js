@@ -93,10 +93,12 @@ CrimeVis.prototype.updateVis = function() {
     // updates axis
     this.svg.select(".y.axis")
         .transition()
+        .duration(750)
         .call(this.yAxis);
 
     this.svg.select(".x.axis")
       .transition()
+      .duration(750)
     	.call(this.xAxis)
 
     // updates graph
@@ -125,6 +127,7 @@ CrimeVis.prototype.updateVis = function() {
 
     bar.select("rect")
     .transition()
+    .duration(750)
       .attr("x", 0)
       .attr("y", function (d) {
            	return that.y(d)
