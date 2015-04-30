@@ -19,6 +19,7 @@
 
     <!--Stylesheets-->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 
     <!-- Get some nice font-->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -101,45 +102,17 @@ body {
    
 
     <div class="container">
-        <h1>Final Project- Heroin in the Year 2012 Data Visualization</h1>
-
-        <div class="row">
-            <div class="col-md-8 col-sm-12">
-                <p> The following visualization shows you...
+       
+<!--         <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h3> Here is a data visualization about the use of heroin in the US in the year 2012 that tries to make sense of the question: Who uses heroin and why? 
                 <br>
-                <br>
-                </p>
+                </h3>
 
             </div>
 
-        </div>
+        </div> -->
 
-        <div class="row">
-            <div class="col-md-2">
-                <button class="btn btn-sm btn-primary" id="all-incomes-btn"> <span class="glyphicon glyphicon-usd"></span> all incomes </button>
-            </div>
-        </div>
-
-        <label>
-        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked>4 brackets</label>
-        <label>
-        <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
-<!--
-        <form name = "incomeForm" class = "iForm" id = "iForm">
-            <p> Choose an income bracket:</p>
-            <label> 
-                <input type="radio" name="income" value="-1" checked> All incomes </label>
-            <label> 
-                <input type="radio" name="income" value="1"> Income 1</label>
-            <label>
-                <input type="radio" name="income" value="2"> Income 2</label>
-            <label>
-                <input type="radio" name="income" value="3"> Income 3</label>
-            <label>
-                <input type="radio" name="income" value="4"> Income 4</label>
-        </form>
-
-    --> 
 
         <div class="row">
             <div class="col-md-2">
@@ -147,16 +120,29 @@ body {
         </div>
 
         <div class="row">
-            <div class="col-md-8" id="moneyVis">
-                <h3>MONEYVIS GOES HERE (and totalVis should be to its right)</h3>
-                <svg width="650" height="20">
+            <div class="col-md-7" id="moneyVis">
+                <h3>User Breakdown by Income Groups</h3>
+
+                 <div class = "bracketing">
+                     <label>4 brackets
+                        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked></label>
+                    <label>7 brackets 
+                    <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;"></label>
+                </div>
+                
+
+       
+                <svg width="650" height="10">
                     <text x="50" y="50"></text>
                 </svg>
+
+                <p id = "info_cash"> Click a stack of cash or see all income groups </p>
+                    <button class="btn btn-sm btn-primary" id="all-incomes-btn"> All income groups </button>
         </div>
 
         <div class="row">
-            <div class="col-md-8" id="totalVis">
-            	<h2> Total Use 2012 </h2>
+            <div class="col-md-5" id="totalVis">
+            	<h3> Total Reported Use 2012 </h3>
                 <svg width="650" height="440">
                     <text x="50" y="50"></text>
                 </svg>
@@ -165,10 +151,7 @@ body {
 
 
 
-
-
-            </br>
-
+           
             <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
             <label>
             <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
@@ -196,22 +179,22 @@ body {
         </br>
 
 
-
+        <div class="row">
+            <div class="col-md-12" id="crimeVis">
+                <h3> Occurences of Reported Crime</h3>
+            </div>
+        </div>
 
 
 
             <div class="row">
                 <div class="col-md-4" id="mhVis">
-                    <h2> Mental Health </h2>
+                    <h3>  Mental Health </h3>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12" id="crimeVis">
-                <h2> Crime</h2>
-            </div>
-        </div>
+        
     </div>
 
     <script>
