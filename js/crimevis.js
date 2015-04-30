@@ -4,7 +4,7 @@
 
 CrimeVis = function(_parentElement, _data, _metaData, _eventHandler){
     this.parentElement = _parentElement;
-    this.data = _data;
+    this.data = _data;//[{value: 1}, {value: 2},{value: 17},{value: 1},{value: 1},{value: 1}];
     this.metaData = _metaData;
     this.eventHandler = _eventHandler;
     this.displayData = [];
@@ -16,10 +16,9 @@ CrimeVis = function(_parentElement, _data, _metaData, _eventHandler){
     this.margin = {top: 20, right: 120, bottom: 250, left: 62},
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 500 - this.margin.top - this.margin.bottom;
-
+    console.log(this.data);
     this.initVis();
 }
-
 
 /**
  * Method that sets up the SVG and the variables
@@ -37,11 +36,7 @@ CrimeVis.prototype.initVis = function(){
 
     // creates axis and scales
     this.y = d3.scale.linear()
-      .range([this.height - 10, 0]);
-
-    // yScale for total data
-    this.origY = d3.scale.linear()
-      .range([this.height -10, 0]);  
+      .range([this.height - 10, 0]); 
 
     this.x = d3.scale.ordinal()
       .rangeRoundBands([0, this.width], .1);
@@ -76,9 +71,6 @@ CrimeVis.prototype.initVis = function(){
         .style("text-anchor", "end")
         .text("number of crimes");;
 
-    // filter, aggregate, modify data
-    // this.wrangleData(null);
-
     // set origData to be the display data of the total dataset
     this.origData = this.displayData;
 
@@ -86,16 +78,6 @@ CrimeVis.prototype.initVis = function(){
     this.updateVis();
 }
 
-
-// /**
-//  * Method to wrangle the data. In this case it takes an options object
-//  * @param _filterFunction - a function that filters data or "null" if none
-//  */
-CrimeVis.prototype.wrangleData= function(_filterFunction){
-
-    // displayData should hold the data which is visualized
-    this.displayData = this.filterAndAggregate(_filterFunction);
-}
 
 
 
@@ -110,16 +92,18 @@ CrimeVis.prototype.updateVis = function() {
 
     // updates axis
     this.svg.select(".y.axis")
+        .transition()
         .call(this.yAxis);
 
     this.svg.select(".x.axis")
+      .transition()
     	.call(this.xAxis)
 
     // updates graph
-
     // Data join
     var bar = this.svg.selectAll(".bar")
-      .data(this.data, function(d) { return d; });
+      .data(this.data)
+
 
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");
@@ -131,7 +115,7 @@ CrimeVis.prototype.updateVis = function() {
     // Add attributes (position) to all bars
     bar
       .attr("class", "bar")
-      .attr("transform", function(d, i) {return "translate(" + that.x(i) + ", 0)"; })
+      .attr("transform", function(d, i) { return "translate(" + that.x(i) + ", 0)"; })
 
     // Remove the extra bars
     bar.exit()
@@ -140,13 +124,17 @@ CrimeVis.prototype.updateVis = function() {
     // Update all inner rects and texts (both update and enter sets)
 
     bar.select("rect")
+    .transition()
       .attr("x", 0)
-      .attr("y", function (d) { 
+      .attr("y", function (d) {
            	return that.y(d)
       })
       .attr("height", function (d) {
-      	return that.height - that.y(d)})
-      .transition()
+        // if datum is zero, return zero height
+        if (d == 0) {return 0}
+        // else draw
+        else { return that.height - that.y(d)}
+      })
       .attr("width", function(d, i) { 
           return that.x.rangeBand(i);
       });
@@ -173,36 +161,4 @@ CrimeVis.prototype.onSelectionChange= function (filteredData){
 
     // update the bar chart
     this.updateVis();
-}
-
-// huh???
-CrimeVis.prototype.filterAndAggregate = function(_filter){
-
-
-    // Set filter to a function that accepts all items
-    // ONLY if the parameter _filter is NOT null use this parameter
-    var filter = function(){return true;}
-    if (_filter != null){
-        filter = _filter;
-    }
-
-    var that = this;
-
-    // create an array of values for priorities 1-16
-    var res = d3.range(16).map(function () {
-         return 0;
-    });
-
-    // accumulate all values that fulfill the filter criterion
-
-    // TODO: implement the function that filters the data and sums the values
-    this.data
-        .filter(filter)
-        .forEach(function (d) {
-            d3.range(16).forEach(function (e){
-               res[e] += d.prios[e]; 
-            })
-        })
-
-    return res;
 }

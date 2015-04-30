@@ -59,10 +59,10 @@ mhVis.prototype.updateVis = function(){
         .attr("d", this.arc)
         .each(function (d) {this._current = d;})
 
-      console.log(this.arc.centroid(37));
+//      console.log(this.arc.centroid(37));
     this.svg.append("text")
       .attr("transform", function(d) {
-        console.log(d); 
+       // console.log(d); 
         d.outerRadius = that.outerRadius; 
         d.innerRadius = that.outerRadius;
         return "translate(" + that.arc.centroid(d[0]) + ")"; 
