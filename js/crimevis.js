@@ -147,7 +147,7 @@ CrimeVis.prototype.updateVis = function() {
       .attr("x", 0)
       .attr("text-anchor", "middle")
       .attr("transform", function(d,i) {return "translate (" + that.x.rangeBand(i)/2 + "," + (that.height + 10) + ")"; })
-      .text(function(d, i) {return crimecats[i]; })
+      .text(function(d, i) {return crimeLabels[crimecats[i]]; })
       .attr("class", "type-label")
       .attr("dy", ".35em")
 }

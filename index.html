@@ -358,6 +358,28 @@ body {
 
     var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2"];
 
+    // objects with key-value pairs of survey codes and readable explanations, to be used as labels in vis
+    var totalLabels = {
+        "number" : "total surveyed",
+        "HERYR" : "heroin users in past year",
+        "HERMON" : "heroin users in past month"
+    };
+
+    var mhLabels = {
+        "MHNSPTR2" : "MH treatment",
+        "NMHSPTR2" : "Substance treatment",
+        "MHASPTR2" : "MH & Substance"
+    };
+
+    var crimeLabels = {
+        "BOOKED" : "Ever arrested",
+        "BKSRVIOL" : "Arrested for violence",
+        "BKSMASLT" : "Arrested for assault",
+        "BKDRVINF" : "Arrested for DUI",
+        "BKDRUG" : "Arrested for drugs",
+        "HERLAWTR" : "Heroin-related problems with law"
+    }
+
     // note: remember to change this when changing bracket_sys
     var moneycats = ["0-20K", "20-50K", "50-75K", "75K+"];
     var moneycats2 = ["0-10K", "10-20K", "20-30K", "30-40K", "40-50K", "50-75K", "75K+"];

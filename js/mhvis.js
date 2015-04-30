@@ -69,7 +69,7 @@ mhVis.prototype.updateVis = function(){
       })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text(function(d, i) { return mhcats[i]; });
+      .text(function(d, i) { return mhLabels[mhcats[i]]; });
 }
 
 mhVis.prototype.render = function (data) {
