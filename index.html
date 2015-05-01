@@ -150,9 +150,6 @@ body {
                 </svg>
             </div>
 
-
-
-
             </br>
             </br>
 
@@ -193,9 +190,8 @@ body {
         </div>
 
 
-
             <div class="row">
-                <div class="col-md-4" id="mhVis">
+                <div class="col-md-6" id="mhVis">
                     <h3>  Mental Health </h3>
                 </div>
             </div>
@@ -265,14 +261,15 @@ body {
 
                     if(bracket_sys == 1)
                         var md = metaData;
+                 
                     else
                         var md = metaData2;
+
 
                     money_vis.onSelectionChange(to_money(md));
                     crime_vis.onSelectionChange(to_crime(allData));
                     total_vis.onSelectionChange(to_total(md));
-                    console.log(to_total)(metaData)[1];
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
                 });
                 
                 // filtering by income (by clicking on a money stack)
@@ -287,7 +284,7 @@ body {
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(md));
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
                 })
 
                 // filter by sex

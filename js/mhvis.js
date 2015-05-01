@@ -120,6 +120,8 @@ var arc = d3.svg.arc()
 }
 
 mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
+    console.log(filteredData, filteredTotal);
+
     // set total to be filtered total heroin users
     this.total = filteredTotal;
 
@@ -141,7 +143,7 @@ mhVis.prototype.completeData = function (MH, total) {
     })
 
     // subtract users with MH problems from total users
-    this.difference = total -this.sum
+    this.difference = total - this.sum
 
     // add the users without MH problems to our dataset
     MH.push(this.difference);
