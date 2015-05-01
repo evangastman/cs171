@@ -51,36 +51,71 @@ mhVis.prototype.initVis = function(){
 mhVis.prototype.updateVis = function(){
 	var that = this;
 
-  	this.path = this.svg.datum(this.data).selectAll("path")
+  	this.path = this.svg.datum(this.data).selectAll("g.path")
       .data(this.pie)
-      .enter().append("path")
-        .attr("class", "pie")
-        .attr("fill", function (d,i) {return that.color(i);})
-        .attr("d", this.arc)
-        .each(function (d) {this._current = d;})
+      .enter().append("g")
+      .attr("class", "slice");
 
-//      console.log(this.arc.centroid(37));
-    this.svg.append("text")
-      .attr("transform", function(d) {
-       // console.log(d); 
-        d.outerRadius = that.outerRadius; 
-        d.innerRadius = that.outerRadius;
-        return "translate(" + that.arc.centroid(d[0]) + ")"; 
-      })
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d, i) { return mhcats[i]; });
+    this.path.append("path")
+        .attr("fill", function (d,i) {console.log(d); return that.color(i);})
+        .attr("d", this.arc)
+        .each(function (d) {console.log(d); this._current = d;})
+
+    this.text = this.path.append("text")
+        .attr("transform", function(d) {
+          console.log(d,that.arc.centroid(d));
+          d.outerRadius = that.outerRadius;
+          d.innerRadius = that.innerRadius;
+          return "translate (" + that.arc.centroid(d) + ")";
+        })
+        .attr("text-anchor", "middle")
+        .text(function(d, i) { return mhLabels[mhcats[i]]; });
+
+    // this.svg
+    //   .enter()
+    //   .append("text")
+    //   .text('hi')
+      // .attr("transform", function(d) {
+      //  // console.log(d); 
+      //   d.outerRadius = that.outerRadius; 
+      //   d.innerRadius = that.outerRadius;
+      //   return "translate(" + that.arc.centroid(d) + ")"; 
+      // })
+      // .attr("dy", ".35em")
+      // .style("text-anchor", "middle")
+      // .text(function(d, i) { return mhLabels[mhcats[i]]; });
 }
 
 mhVis.prototype.render = function (data) {
    var that = this
+   console.log(this.arc.centroid);
 
+       var hi = d3.selectAll(".slice");
+       var hello = d3.select(hi)
+
+   var arc = d3.svg.arc()
+      .innerRadius(132.5 - 100)
+      .outerRadius(132.5 - 20);
+
+  // update data for slices
   this.path = this.svg.datum(this.data).selectAll("path")
     .data(this.pie)
   
-   this.path.transition()
-     .duration(750)
-     .attrTween("d", this.arcTween);
+  // transition slices
+  this.path.transition()
+    .duration(750)
+    .attrTween("d", this.arcTween);
+
+  // transition text
+  this.text
+    .data(this.pie)
+    .transition()
+    .duration(750)
+    .attr("transform", function(d) {
+      d.outerRadius = that.outerRadius;
+      d.innerRadius = that.outerRadius;
+      return "translate (" + that.arc.centroid(d) + ")";
+      })
 }
 
 
