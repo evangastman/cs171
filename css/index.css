@@ -1,3 +1,7 @@
+body{
+	zoom:90%;
+}
+
 .bracketing{
 	font-size: 15px;
 }
@@ -9,6 +13,19 @@
     height: 1.3em;
 }
 
+.sex, .age{
+	font-size: 15px;
+}
+
+#sex, #age{
+
+	border: 0px;
+    width: 100%;
+    height: 120%;
+    height: 1.2em;
+}
+
+
 #info_cash{
 	font-size: 16px;
 }
@@ -16,3 +33,42 @@
 #all-incomes-btn{
 	font-size: 15px;
 }
+
+.age{
+	background:aliceblue;
+	width:40%;
+}
+
+.sex{
+	background:aliceblue;
+	width:90%;
+}
+
+.bracketing{
+	background:aliceblue;
+	width:50%;
+}
+
+#moneyVis, #totalVis{
+	font-size:17px;
+}
+
+.cash_selector{
+	position:absolute;
+	top:420px;
+}
+
+#crime_label{
+	float:left;
+}
+
+#mh_label{
+	float:right;
+}
+/*
+#sex{
+   position: fixed;
+  top: 349px;
+  width: 10%;
+  left: 350px;
+}*/

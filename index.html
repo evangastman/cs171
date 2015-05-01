@@ -115,18 +115,18 @@ body {
 
         </div> -->
 
-
-      
+   
 
         <div class="row">
             <div class="col-md-7" id="moneyVis">
                 <h3>User Breakdown by Income Groups</h3>
 
                  <div class = "bracketing">
-                     <label>4 brackets
-                        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked></label>
-                    <label>7 brackets 
-                    <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;"></label>
+                    <h4> Select number of income groups: </h4>
+                     <label>
+                        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked>4 Brackets</label>
+                    <label>
+                    <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
                 </div>
       
 
@@ -134,9 +134,10 @@ body {
                 <svg width="650" height="10">
                     <text x="50" y="50"></text>
                 </svg> -->
-
-                <p id = "info_cash"> Click a stack of cash or see all income groups </p>
-                    <button class="btn btn-sm btn-primary" id="all-incomes-btn"> All income groups </button>
+                <div class = "cash_selector">
+                <p id = "info_cash"> Click a stack of cash or go back to 
+                    <button class="btn btn-sm btn-primary" id="all-incomes-btn">   All income groups </button></p>
+                </div>
         </div>
 
 
@@ -154,18 +155,39 @@ body {
             </br>
             </br>
             </div>
-            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
-            <label>
-            <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
-            <label>
-            <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
-            <label>
-            <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
-             </br>
+            </div>
 
+            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+            <h3 id = "crime_label"> Occurences of Reported Crime</h3>
+            <h3 id = "mh_label" > Mental Health Reporting </h3>
+            <br>
+            </br>
+            <br>
             </br>
 
+            
+        <div class = "row">
+            <div class = "col-md-2">
+                <div class = "sex">
+                <h4> Select Gender: </h4>
+                <label>
+                <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
+                <label>
+                <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
+                <label>
+                <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
+                 </h4>
+                
+                </div>
+            </div>
+
+
             <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+      
+        
+          <div class = "col-md-6">
+           <div class = "age">
+            <h4> Select Age Group: </h4>
             <label>
             <input type="radio" id="age" name="age" class="age" value="1" onclick="filters.age=1;">12-17</label>
             <label>
@@ -178,27 +200,28 @@ body {
                 <input type="radio" id="age" name="age" class="age" value="5" onclick="filters.age=5;">50+</label>
             <label>
             <input type="radio" id="age" name="age" class="age" value="-1" onclick="filters.age=-1;" checked>all</label>
-        </br>
+            </br>
+            </div>
+          </div>
+
+          <div class= "col-4">
+          </div>
+          </div>
 
 
         <div class="row">
             <div class="col-md-9" id="crimeVis">
-                <h3> Occurences of Reported Crime</h3>
+               
             </div>
 
         
-           
+                
                 <div class="col-md-3" id="mhVis">
 
         </div>
 
 
-            <div class="row">
-                <div class="col-md-6" id="mhVis">
-
-                    <h3>  Mental Health </h3>
-                
-            </div>
+        
         </div>
         </div>
     
