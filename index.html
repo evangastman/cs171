@@ -114,8 +114,6 @@ body {
             </div>
 
         </div> -->
-
-
         <div class="row">
             <div class="col-md-2">
             </div>
@@ -131,9 +129,7 @@ body {
                     <label>7 brackets 
                     <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;"></label>
                 </div>
-      
-
-       
+             
                 <svg width="650" height="10">
                     <text x="50" y="50"></text>
                 </svg>
@@ -194,15 +190,17 @@ body {
                 <div class="col-md-6" id="mhVis">
                     <h3>  Mental Health </h3>
                 </div>
+                <div id="tooltip" class = "hidden">
+                    <p><strong>Number of users</strong>
+                    </p>      
+                    <p><span id="value">100</span>%</p>
+                </div>
             </div>
-        </div>
 
-        
+        </div>       
     </div>
 
     <script>
-
-        var dateFormatter = d3.time.format("%Y-%m-%d");
 
         $(function(){ // this function is called after the HTML document is fully loaded
 
@@ -231,9 +229,6 @@ body {
             	var that = this;
 
                 var MyEventHandler = new Object();
-
-                //TODO: Instantiate all Vis Objects here
-
 
                 var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), to_money(metaData2), MyEventHandler);
 
@@ -264,7 +259,6 @@ body {
                  
                     else
                         var md = metaData2;
-
 
                     money_vis.onSelectionChange(to_money(md));
                     crime_vis.onSelectionChange(to_crime(allData));
@@ -330,9 +324,7 @@ body {
 
             var startHere = function(){
 
-                //TODO: load data here and call "dataLoaded" afterwards
-                // Hint: http://giscollective.org/d3-queue-js/
-
+                //load data here
                 queue()
                     .defer(d3.json, "data/CS171_UsersOnly_JSON.json")
                     .defer(d3.json, "data/CS171_metaData.json")
@@ -345,7 +337,6 @@ body {
             }
 
             startHere();
-
         })
     
      /**
@@ -428,7 +419,6 @@ body {
                 return true; 
         }
     }
-
 
     // returns array of length 3: population, heroin users in past year, heroin users in past month
     function to_total(_metadata){
@@ -516,16 +506,6 @@ body {
 
     }
 
-    /*
-    // returns value of income selection
-    function nowLayout () {
-        var x = document.forms["incomeForm"]["income"].value;
-        return x;
-    }
-
-    nowLayout(); */
-
     </script>
-
 </body>
 </html>

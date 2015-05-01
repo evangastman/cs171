@@ -58,7 +58,22 @@ mhVis.prototype.updateVis = function(){
   	this.path = this.svg.datum(this.data).selectAll("g.path")
       .data(this.pie)
       .enter().append("g")
-      .attr("class", "slice");
+      .attr("class", "slice")
+      // on mouseover, show tooltip with number of users in that category
+      .on("mouseover", function (d) {
+          d3.select("#tooltip")
+              .attr("class", "notHidden")
+              .style("left", d3.event.pageX + "px")
+              .style("top", d3.event.pageY + "px")
+              .style("opacity", 1)
+              .select("#value")
+              .text(d.value)
+          })
+      .on("mouseout", function () {
+    // Hide the tooltip on mouseout
+    d3.select("#tooltip")
+        .style("opacity", 0);;
+    })
 
     this.path.append("path")
         .attr("fill", function (d,i) { return that.color(i);})
