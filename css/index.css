@@ -62,6 +62,10 @@ body{
 	float:left;
 }
 
+#crimeVis svg{
+	height:350px;
+}
+
 #mh_label{
 	float:right;
 }
