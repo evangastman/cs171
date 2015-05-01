@@ -116,10 +116,7 @@ body {
         </div> -->
 
 
-        <div class="row">
-            <div class="col-md-2">
-            </div>
-        </div>
+      
 
         <div class="row">
             <div class="col-md-7" id="moneyVis">
@@ -133,14 +130,15 @@ body {
                 </div>
       
 
-       
+       <!-- 
                 <svg width="650" height="10">
                     <text x="50" y="50"></text>
-                </svg>
+                </svg> -->
 
                 <p id = "info_cash"> Click a stack of cash or see all income groups </p>
                     <button class="btn btn-sm btn-primary" id="all-incomes-btn"> All income groups </button>
         </div>
+
 
         <div class="row">
             <div class="col-md-5" id="totalVis">
@@ -158,7 +156,7 @@ body {
 
             </br>
             </br>
-
+            </div>
             <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
             <label>
             <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
@@ -166,7 +164,7 @@ body {
             <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
             <label>
             <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
-        </br>
+             </br>
 
             </br>
 
@@ -187,19 +185,19 @@ body {
 
 
         <div class="row">
-            <div class="col-md-12" id="crimeVis">
+            <div class="col-md-9" id="crimeVis">
                 <h3> Occurences of Reported Crime</h3>
             </div>
-        </div>
-
-
-
-            <div class="row">
-                <div class="col-md-4" id="mhVis">
+        
+           
+                <div class="col-md-3" id="mhVis">
                     <h3>  Mental Health </h3>
-                </div>
+                
             </div>
         </div>
+        </div>
+    
+
 
         
     </div>
