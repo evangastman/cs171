@@ -1,5 +1,8 @@
 body{
 	background-color: #EBFFEB;
+	zoom:35%;
+}
+
 }
 
 #container img{
@@ -19,8 +22,12 @@ body{
 
 }
 
-.pill:hover{
-	background-color: lightgrey;
+.pill p:hover{
+	
+
+    text-decoration: underline;
+}
+
 }
 
 .pill img{

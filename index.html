@@ -114,29 +114,30 @@ body {
             </div>
 
         </div> -->
-        <div class="row">
-            <div class="col-md-2">
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-md-7" id="moneyVis">
                 <h3>User Breakdown by Income Groups</h3>
 
                  <div class = "bracketing">
-                     <label>4 brackets
-                        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked></label>
-                    <label>7 brackets 
-                    <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;"></label>
+                    <h4> Select number of income groups: </h4>
+                     <label>
+                        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked>4 Brackets</label>
+                    <label>
+                    <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
                 </div>
-             
+
+       <!-- 
+>>>>>>> 44136cb0c5711fc822da2f75f285ae90e9b59ef2
                 <svg width="650" height="10">
                     <text x="50" y="50"></text>
-                </svg>
-
-                <p id = "info_cash"> Click a stack of cash or see all income groups </p>
-                    <button class="btn btn-sm btn-primary" id="all-incomes-btn"> All income groups </button>
+                </svg> -->
+                <div class = "cash_selector">
+                <p id = "info_cash"> Click a stack of cash or go back to 
+                    <button class="btn btn-sm btn-primary" id="all-incomes-btn">   All income groups </button></p>
+                </div>
         </div>
+
 
         <div class="row">
             <div class="col-md-5" id="totalVis">
@@ -146,28 +147,45 @@ body {
                 </svg>
             </div>
 
-            </br>
-            </br>
-
-            </br>
-            </br>
+            
+            </div>
+    </div>
 
             <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
-            <label>
-            <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
-            <label>
-            <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
-            <label>
-            <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
-        </br>
+            <div class = "row">
+                <div class = "col-md-12">
+                    <h3 id = "crime_label"> Occurences of Reported Crime</h3>
+                  <h3 id = "mh_label" > Mental Health Reporting </h3>
+            </div>   
 
-            </br>
+
+
+        <div class = "row">
+            <div class = "col-md-2">
+                <div class = "sex">
+                    <h4> Select Gender: </h4>
+                    <label>
+                        <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
+                    <label>
+                        <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
+                    <label>
+                        <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
+                     
+                
+                </div>
+            </div>
+
 
             <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+      
+        
+          <div class = "col-md-6">
+           <div class = "age">
+            <h4> Select Age Group: </h4>
             <label>
-            <input type="radio" id="age" name="age" class="age" value="1" onclick="filters.age=1;">12-17</label>
+                <input type="radio" id="age" name="age" class="age" value="1" onclick="filters.age=1;">12-17</label>
             <label>
-            <input type="radio" id="age" name="age" class="age" value="2" onclick="filters.age=2;">18-25</label>
+                <input type="radio" id="age" name="age" class="age" value="2" onclick="filters.age=2;">18-25</label>
             <label>
                 <input type="radio" id="age" name="age" class="age" value="3" onclick="filters.age=3;">26-34</label>
             <label>
@@ -175,21 +193,27 @@ body {
             <label>
                 <input type="radio" id="age" name="age" class="age" value="5" onclick="filters.age=5;">50+</label>
             <label>
-            <input type="radio" id="age" name="age" class="age" value="-1" onclick="filters.age=-1;" checked>all</label>
-        </br>
+                <input type="radio" id="age" name="age" class="age" value="-1" onclick="filters.age=-1;" checked>all</label>  
+            </div>
+          </div>
+
+            <div class = "col-md-4">
+            </div>
+    </div>
+
 
 
         <div class="row">
-            <div class="col-md-12" id="crimeVis">
-                <h3> Occurences of Reported Crime</h3>
+            <div class="col-md-9" id="crimeVis">
+               
             </div>
-        </div>
 
+        
+                
+                <div class="col-md-3" id="mhVis">
 
-            <div class="row">
-                <div class="col-md-6" id="mhVis">
-                    <h3>  Mental Health </h3>
                 </div>
+
                 <div id="tooltip" class = "hidden">
                     <p><strong>Number of users</strong>
                     </p>      
@@ -198,6 +222,17 @@ body {
             </div>
 
         </div>       
+
+        
+        </div>
+
+        <div class = "row">
+            <div class = "col-md-4"></div>
+            <div class = "col-md-4">
+            <!-- start feedwind code --><script type="text/javascript">document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://topics.nytimes.com/top/reference/timestopics/subjects/h/heroin/index.html?rss=1",rssmikle_frame_width: "400",rssmikle_frame_height: "400",frame_height_by_article: "3",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "left",corner: "off",scrollbar: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "8",mcspeed: "20",sort: "Off",rssmikle_title: "on",rssmikle_title_sentence: "NYT> Heroin in the US and the World",rssmikle_title_link: "",rssmikle_title_bgcolor: "#FFB914",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#FFFFFF",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#1C1405",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#666666",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",item_description_style: "text+tn",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "icon",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; width:400px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code -->
+            <div class = "col-md-4"></div>
+        </div>
+        
     </div>
 
     <script>
