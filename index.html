@@ -238,7 +238,7 @@ body {
 
                 var crime_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
-                var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, MyEventHandler);
+                var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, to_total(metaData)[1], MyEventHandler);
 
                 var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
 
@@ -264,7 +264,8 @@ body {
                     money_vis.onSelectionChange(to_money(md));
                     crime_vis.onSelectionChange(to_crime(allData));
                     total_vis.onSelectionChange(to_total(md));
-                    mh_vis.onSelectionChange(to_mh(allData));
+                    console.log(to_total)(metaData)[1];
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
                 });
                 
                 // filtering by income (by clicking on a money stack)
@@ -279,7 +280,7 @@ body {
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(md));
-                    mh_vis.onSelectionChange(to_mh(allData));
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
                 })
 
                 // filter by sex
@@ -356,7 +357,7 @@ body {
 
     var crimecats = ["BOOKED", "BKSRVIOL", "BKSMASLT", "BKDRVINF", "BKDRUG", "HERLAWTR"];
 
-    var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2"];
+    var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2", "NoMH"];
 
     // objects with key-value pairs of survey codes and readable explanations, to be used as labels in vis
     var totalLabels = {
@@ -368,7 +369,8 @@ body {
     var mhLabels = {
         "MHNSPTR2" : "MH treatment",
         "NMHSPTR2" : "Substance treatment",
-        "MHASPTR2" : "MH & Substance"
+        "MHASPTR2" : "MH & Substance",
+        "NoMH" : "No MH treatment"
     };
 
     var crimeLabels = {
