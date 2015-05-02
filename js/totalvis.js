@@ -159,7 +159,7 @@ TotalVis.prototype.updateVis = function(){
           .style("top", d3.event.pageY + "px")
           .style("opacity", 1)
           .select("#value")
-          .text(totalLabels[totalcats[i]] + ": " + that.metaData[i + 1])
+          .text(totalLabels[totalcats[i + 1]] + ": " + that.metaData[i + 1])
         })
       .on("mouseout", function () {
     // Hide the tooltip on mouseout
