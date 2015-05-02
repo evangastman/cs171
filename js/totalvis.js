@@ -33,8 +33,7 @@ TotalVis = function(_parentElement, _data, _metaData, _metaData2, _totalPop, _ev
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 400 - this.margin.top - this.margin.bottom;
 
-
-    console.log(this.metaData);
+    console.log(this.metaData2);
     // console.log(to_total(this.metaData));
 
 
@@ -108,9 +107,7 @@ TotalVis.prototype.wrangleData= function(_filterFunction){
 
     // displayData should hold the data which is visualized
     this.displayData = this.filterAndAggregate();
-
 }
-
 
 
 /**
@@ -118,19 +115,13 @@ TotalVis.prototype.wrangleData= function(_filterFunction){
  */
 TotalVis.prototype.updateVis = function(){
 
-
     var that = this;  
 
-    // 
-    console.log(this.metaData);
-    var totals = this.metaData;
-    console.log(totals);
+    // get data (users in past month and year) as a percent of the total
+    var totals = this.metaData
     var pop = this.totalPop;
-    console.log(pop);
-
 
     var tot_mon_year = [totals[1]/pop, totals[2]/pop];
-    console.log(tot_mon_year);
 
 
     // y.domain will depend on whether or not we show total population
@@ -154,16 +145,27 @@ TotalVis.prototype.updateVis = function(){
     // updates graph
     // Data join
     var bar = this.svg.selectAll(".bar")
-
       .data(tot_mon_year);
-
-     
 
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");
 
     // Append a rect and a text only for the Enter set (new g)
-    bar_enter.append("rect");
+    bar_enter.append("rect")
+       .on("mouseover", function (d, i) {
+         d3.select("#tooltip")
+          .attr("class", "notHidden")
+          .style("left", d3.event.pageX + "px")
+          .style("top", d3.event.pageY + "px")
+          .style("opacity", 1)
+          .select("#value")
+          .text(totalLabels[totalcats[i]] + ": " + that.metaData[i + 1])
+        })
+      .on("mouseout", function () {
+    // Hide the tooltip on mouseout
+       d3.select("#tooltip")
+          .style("opacity", 0);;
+      });;
     //bar_enter.append("text");
 
     // Add attributes (position) to all bars
@@ -193,8 +195,6 @@ TotalVis.prototype.updateVis = function(){
 
       .attr("width", function(d, i){
         d = tot_mon_year
-        console.log(d[i]);
-
         return that.x(d[i]);
       })
       /*
@@ -204,9 +204,7 @@ TotalVis.prototype.updateVis = function(){
       }) */
 
       .transition()
-
 }
-
 
 /**
  * Gets called by event handler and should create new aggregated data
@@ -215,16 +213,10 @@ TotalVis.prototype.updateVis = function(){
  * @param selection
  */
 TotalVis.prototype.onSelectionChange= function (_filteredData){
-    console.log(_filteredData);
-
     this.metaData = _filteredData;
-    // TODO: call wrangle function
-    // this.wrangleData(function(d) { return (d.time >= selectionStart && d.time <= selectionEnd); });
 
-
+console.log(_filteredData);
     this.updateVis();
-
-
 }
 
 /**
@@ -233,7 +225,6 @@ TotalVis.prototype.onSelectionChange= function (_filteredData){
  * @returns {Array|*}
  */
 TotalVis.prototype.filterAndAggregate = function(_filter){
-
 
     // Set filter to a function that accepts all items
     // ONLY if the parameter _filter is NOT null use this parameter
@@ -247,5 +238,4 @@ TotalVis.prototype.filterAndAggregate = function(_filter){
     var filtered = this.metaData.filter(filter);
 
     return filtered;
-
 }

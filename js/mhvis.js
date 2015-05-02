@@ -60,14 +60,14 @@ mhVis.prototype.updateVis = function(){
       .enter().append("g")
       .attr("class", "slice")
       // on mouseover, show tooltip with number of users in that category
-      .on("mouseover", function (d) {
+      .on("mouseover", function (d, i) {
           d3.select("#tooltip")
               .attr("class", "notHidden")
               .style("left", d3.event.pageX + "px")
               .style("top", d3.event.pageY + "px")
               .style("opacity", 1)
               .select("#value")
-              .text(d.value)
+              .text(mhLabels[mhcats[i]] + ": " + d.value)
           })
       .on("mouseout", function () {
     // Hide the tooltip on mouseout

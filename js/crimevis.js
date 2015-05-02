@@ -51,17 +51,6 @@ CrimeVis.prototype.initVis = function(){
       .scale(this.y)
       .orient("left");
 
-    // Add axes visual elements
-    // this.svg.append("g")
-    //   .attr("class", "x axis")
-    //   .attr("transform", "translate(0," + this.height + ")")
-    //   .append("text")
-    //     .attr("transform", "translate(70,20)")
-    //     .attr("y", 6)
-    //     .attr("dy", ".71em")
-    //     .style("text-anchor", "end")
-    //     .text("type of arrest");;
-
   this.svg.append("g")
       .attr("class", "y axis")
        .append("text")
@@ -69,7 +58,7 @@ CrimeVis.prototype.initVis = function(){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("number of crimes");;
+        .text("number of crimes")
 
     // set origData to be the display data of the total dataset
     this.origData = this.displayData;
@@ -106,12 +95,26 @@ CrimeVis.prototype.updateVis = function() {
     var bar = this.svg.selectAll(".bar")
       .data(this.data)
 
-
     // Append new bar groups, if required
     var bar_enter = bar.enter().append("g");
 
     // Append a rect and a text only for the Enter set (new g)
-    bar_enter.append("rect");
+    bar_enter.append("rect")
+       .on("mouseover", function (d, i) {
+         d3.select("#tooltip")
+          .attr("class", "notHidden")
+          .style("left", d3.event.pageX + "px")
+          .style("top", d3.event.pageY + "px")
+          .style("opacity", 1)
+          .select("#value")
+          .text(crimeLabels[crimecats[i]] + ": " + d)
+        })
+    .on("mouseout", function () {
+    // Hide the tooltip on mouseout
+     d3.select("#tooltip")
+        .style("opacity", 0);;
+    });
+
     bar_enter.append("text");
 
     // Add attributes (position) to all bars
