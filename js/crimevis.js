@@ -16,7 +16,6 @@ CrimeVis = function(_parentElement, _data, _metaData, _eventHandler){
     this.margin = {top: 20, right: 120, bottom: 250, left: 62},
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 500 - this.margin.top - this.margin.bottom;
-    console.log(this.data);
     this.initVis();
 }
 

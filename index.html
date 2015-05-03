@@ -20,10 +20,10 @@
     <!--Stylesheets-->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/myStyle.css">
 
     <!-- Get some nice font-->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
 
@@ -36,11 +36,6 @@
     <script src="js/moneyvis.js"></script>
     <script src="js/form.js"></script>
     <script src="js/moneyvis.js"></script>  
-
-
-
-    <!-- add own stylesheet-->
-    <link rel="stylesheet" type="text/css" href="css/myStyle.css">
 
 </head>
 
@@ -258,7 +253,6 @@ body {
 
             // call this function after Data is loaded, reformatted and bound to the variables
             var initVis = function(){
-                    console.log(allData);
 
             	var that = this;
 
@@ -281,7 +275,6 @@ body {
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(metaData));
-                    console.log(mhData);
                 });
 
                 // rebracketing
@@ -344,7 +337,6 @@ body {
                     metaData = _metaData;
                     //remember total people surveyed
                     totalPop = to_total(metaData)[0];
-                    console.log(to_total(metaData));
 
                     metaData2 = _metaData2;
 
@@ -497,8 +489,7 @@ body {
             }
         }
 
-        console.log(tempCrimeData);
-
+        // console.log(tempCrimeData);
         return tempCrimeData;
     }
 

@@ -13,6 +13,17 @@ body{
     shape-rendering: crispEdges;
 }
 
+.barUpper,
+.barLower
+{
+    fill: orange;
+}
+
+.barUpper: hover,
+.barLower: hover {
+    fill: orangered;
+}
+
 .boundingBox{
     cursor: pointer;
     fill: grey;

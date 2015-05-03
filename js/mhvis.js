@@ -135,7 +135,6 @@ var arc = d3.svg.arc()
 }
 
 mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
-    console.log(filteredData, filteredTotal);
 
     // set total to be filtered total heroin users
     this.total = filteredTotal;
