@@ -50,6 +50,7 @@ mhVis.prototype.initVis = function(){
 	    .attr("transform", "translate(" + this.width / 2 + ", 0" + this.height / 2 + ")");
 
     this.updateVis();
+    this.render();
 }
 
 mhVis.prototype.updateVis = function(){
@@ -59,21 +60,6 @@ mhVis.prototype.updateVis = function(){
       .data(this.pie)
       .enter().append("g")
       .attr("class", "slice")
-      // on mouseover, show tooltip with number of users in that category
-      .on("mouseover", function (d, i) {
-          d3.select("#tooltip")
-              .attr("class", "notHidden")
-              .style("left", d3.event.pageX + "px")
-              .style("top", d3.event.pageY + "px")
-              .style("opacity", 1)
-              .select("#value")
-              .text(mhLabels[mhcats[i]] + ": " + d.value)
-          })
-      .on("mouseout", function () {
-    // Hide the tooltip on mouseout
-    d3.select("#tooltip")
-        .style("opacity", 0);;
-    })
 
     this.path.append("path")
         .attr("fill", function (d,i) { return that.color(i);})
@@ -92,6 +78,7 @@ mhVis.prototype.updateVis = function(){
 }
 
 mhVis.prototype.render = function (data) {
+  console.log(this.data);
   var that = this
 
   var arc = d3.svg.arc()
@@ -101,6 +88,22 @@ mhVis.prototype.render = function (data) {
   // update data for slices
   this.path = this.svg.datum(this.data).selectAll("path")
     .data(this.pie)
+    // on mouseover, show tooltip with number of users in that category
+    .on("mouseover", function (d, i) {
+        d3.select("#tooltip")
+            .attr("class", "notHidden")
+            .style("left", d3.event.pageX + "px")
+            .style("top", d3.event.pageY + "px")
+            .style("opacity", 1)
+            .select("#value")
+            .text(mhLabels[mhcats[i]] + ": " + d.value)
+        })
+    .on("mouseout", function () {
+      // Hide the tooltip on mouseout
+      d3.select("#tooltip")
+      .style("opacity", 0);;
+    })
+
   
   // transition slices
   this.path.transition()
@@ -135,7 +138,6 @@ var arc = d3.svg.arc()
 }
 
 mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
-
     // set total to be filtered total heroin users
     this.total = filteredTotal;
 

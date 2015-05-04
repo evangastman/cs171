@@ -1,7 +1,7 @@
 /*
   MONEYVIS.js
 
- 	Make$ a $tyli$h dollar bill$ bar chart for income bracket $election
+ 	Hi! This make$ a $tyli$h dollar bill$ bar chart for income bracket $election
 */
 
 MoneyVis = function(_parentElement, _data, _metaData, _metaData2, _eventHandler){
@@ -62,19 +62,6 @@ MoneyVis.prototype.initVis = function(){
       .scale(this.y)
       .orient("left");
 
-    // Add axes visual elements
-    // this.svg.append("g")
-    //   .attr("class", "x axis")
-    //   .attr("transform", "translate(0," + this.height + ")")
-    //   .append("text")
-    //     .attr("transform", "translate(70,20)")
-    //     .attr("y", 6)
-    //     .attr("dy", ".71em")
-    //     .style("text-anchor", "end")
-    //     .text("type of arrest");;
-
-    ;
-
   this.svg.append("g")
       .attr("class", "y axis")
        .append("text")
@@ -84,10 +71,6 @@ MoneyVis.prototype.initVis = function(){
         .style("text-anchor", "end");
 
   console.log(this.svg);
-
-
-    // filter, aggregate, modify data
-    // this.wrangleData(null);
 
     // set origData to be the display data of the total dataset
     this.origData = this.displayData;
@@ -110,7 +93,6 @@ MoneyVis.prototype.wrangleData= function(_filterFunction){
 }
 
 
-
 // /**
 //  * the drawing function - should use the D3 selection, enter, exit
 //  */
@@ -126,10 +108,6 @@ MoneyVis.prototype.updateVis = function() {
     // updates scales
     this.y.domain(d3.extent(this.metaData, function(d) { return d; }));
     this.x.domain(this.metaData.map(function(d, i) { return i }));
-
-    // updates axis
-    //this.svg.select(".y.axis")
-        //.call(this.yAxis);
 
     this.svg.select(".x.axis")
     	.call(this.xAxis)
@@ -151,8 +129,6 @@ MoneyVis.prototype.updateVis = function() {
       .attr("x", 0)
       .attr("y", 0)
       .attr("preserveAspectRatio", "none")
-      //.attr("width", 90)
-      //.attr("height", 200);
 
     //bar_enter.append("image");
     bar_enter.append("text");

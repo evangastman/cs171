@@ -13,7 +13,10 @@ body{
     shape-rendering: crispEdges;
 }
 
-.barUpper,
+.barUpper
+{
+    fill: red;
+}
 .barLower
 {
     fill: orange;
