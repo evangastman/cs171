@@ -26,7 +26,7 @@ TotalVis = function(_parentElement, _data, _metaData, _metaData2, _totalPop, _ev
     this.displayData = [];
 
     // constants
-    this.margin = {top: 20, right: 10, bottom: 30, left: 60},
+    this.margin = {top: 20, right: 5, bottom: 30, left: 75},
     this.width = getInnerWidth(this.parentElement) - this.margin.left - this.margin.right,
     this.height = 400 - this.margin.top - this.margin.bottom;
 
@@ -55,7 +55,7 @@ TotalVis.prototype.initVis = function(){
       .clamp(true);
     // different scale for upper values
     this.xUpper = d3.scale.linear()
-      .range([this.width/2, this.width])
+      .range([this.width/2, this.width - this.margin.right])
       .clamp(true);
 
     this.y = d3.scale.ordinal()
@@ -72,7 +72,7 @@ TotalVis.prototype.initVis = function(){
 
     this.yAxis = d3.svg.axis()
       .scale(this.y)
-      .orient("left");
+      .orient("left")
 
     // Add axes visual elements
     this.svg.append("g")
@@ -86,12 +86,6 @@ TotalVis.prototype.initVis = function(){
 
     this.svg.append("g")
         .attr("class", "y axis")
-       // .attr("transform", "translate(20, 0)")
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
 
     // filter, aggregate, modify data
     this.wrangleData(null);
