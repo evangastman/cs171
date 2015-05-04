@@ -15,16 +15,17 @@ body{
 
 .barUpper
 {
-    fill: red;
+    fill: purple;
 }
 .barLower
 {
     fill: orange;
 }
 
-.barUpper: hover,
-.barLower: hover {
-    fill: orangered;
+.barUpper:hover,
+.barLower:hover
+{
+    fill : orangered;
 }
 
 .boundingBox{

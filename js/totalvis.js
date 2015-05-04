@@ -77,12 +77,12 @@ TotalVis.prototype.initVis = function(){
     // Add axes visual elements
     this.svg.append("g")
         .attr("class", "x axis lower")
-        .attr("transform", "translate(2," + this.height + ")")
+        .attr("transform", "translate(0," + this.height + ")")
 
     this.svg.append("g")
         .attr("class", "x axis upper")
-        .attr("transform", "translate(2," + this.height + ")")
-        .style("fill", "red")
+        .attr("transform", "translate(0," + this.height + ")")
+        .style("fill", "purple")
 
     this.svg.append("g")
         .attr("class", "y axis")
@@ -110,19 +110,12 @@ TotalVis.prototype.wrangleData= function(_filterFunction){
     this.displayData = this.filterAndAggregate();
 }
 
-
 /**
  * the drawing function - should use the D3 selection, enter, exit
  */
 TotalVis.prototype.updateVis = function(){
 
     var that = this;  
-
-    // get data (users in past month and year) as a percent of the total
-    var totals = this.metaData
-    var pop = this.totalPop;
-
-    var tot_mon_year = [totals[1]/pop, totals[2]/pop];
 
     this.cats = ["TOTAL", "PAST-YEAR", "PAST-MONTH"];
 
@@ -203,7 +196,6 @@ TotalVis.prototype.updateVis = function(){
        d3.select("#tooltip")
           .style("opacity", 0);;
       });;
-    //bar_enter.append("text");
 
     // Add attributes (position) to all bars
     barUpper
@@ -224,7 +216,7 @@ TotalVis.prototype.updateVis = function(){
       .transition()
       .duration(750)
       .attr("x", function(d, i){
-        return 2;
+        return 0;
       })
       .attr("y", function(d, i){
         return 25;
@@ -235,13 +227,13 @@ TotalVis.prototype.updateVis = function(){
       .attr("width", function(d, i){(console.log(d));
         return that.xLower(d);
       })
-      // .transition()
+
     //place upper bars
     barUpper.select("rect")
       .transition()
       .duration(750)
       .attr("x", function(d, i){
-        return 2;
+        return 0;
       })
       .attr("y", function(d, i){
         return 25;
@@ -252,7 +244,6 @@ TotalVis.prototype.updateVis = function(){
       .attr("width", function(d, i){
         return that.xUpper(d);
       })
-      // .transition()
 }
 
 /**
