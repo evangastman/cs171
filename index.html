@@ -305,23 +305,31 @@ body {
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
                     total_vis.onSelectionChange(to_total(md));
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
                 })
 
                 // filter by sex
                 d3.selectAll(".sex").on("click", function(){
+                     if(bracket_sys == 1)
+                        var md = metaData;
+                    else
+                        var md = metaData2;
                     //console.log(filters);
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
                 });
 
                 // filter by age
                 d3.selectAll(".age").on("click", function(){
+                    if(bracket_sys == 1)
+                        var md = metaData;
+                    else
+                        var md = metaData2;
                     //console.log(filters);
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(metaData)[1]);
+                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
                 });
 
             }
@@ -332,7 +340,6 @@ body {
                 if (!error) {
 
                     allData = _allData;
-
 
                     metaData = _metaData;
                     //remember total people surveyed
@@ -530,25 +537,6 @@ body {
         return moneydata;
 
     }
-
-    
-  d3.selectAll(".slice")
-      // on mouseover, show tooltip with number of users in that category
-    .on("mouseover", function (d, i) {console.log(d);
-        d3.select("#tooltip")
-            .attr("class", "notHidden")
-            .style("left", d3.event.pageX + "px")
-            .style("top", d3.event.pageY + "px")
-            .style("opacity", 1)
-            .select("#value")
-            .text(mhLabels[mhcats[i]] + ": " + d.value)
-        })
-    .on("mouseout", function () {
-  // Hide the tooltip on mouseout
-  d3.select("#tooltip")
-      .style("opacity", 0);;
-  })
-
 
     </script>
 </body>
