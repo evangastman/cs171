@@ -78,6 +78,7 @@ TotalVis.prototype.initVis = function(){
     this.svg.append("g")
         .attr("class", "x axis lower")
         .attr("transform", "translate(0," + this.height + ")")
+        .style("fill", "orange")
 
     this.svg.append("g")
         .attr("class", "x axis upper")
