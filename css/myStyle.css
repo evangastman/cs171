@@ -41,6 +41,11 @@ body{
     pointer-events: none;
 }
 
+.type-label
+{
+    fill: grey;
+}
+
 .area {
     fill: lightsteelblue;
     stroke-width: 0;

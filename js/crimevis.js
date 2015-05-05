@@ -66,9 +66,6 @@ CrimeVis.prototype.initVis = function(){
     this.updateVis();
 }
 
-
-
-
 // /**
 //  * the drawing function - should use the D3 selection, enter, exit
 //  */
@@ -108,11 +105,11 @@ CrimeVis.prototype.updateVis = function() {
           .select("#value")
           .text(crimeLabels[crimecats[i]] + ": " + d)
         })
-    .on("mouseout", function () {
-    // Hide the tooltip on mouseout
-     d3.select("#tooltip")
-        .style("opacity", 0);;
-    });
+      .on("mouseout", function () {
+      // Hide the tooltip on mouseout
+       d3.select("#tooltip")
+          .style("opacity", 0);;
+      });
 
     bar_enter.append("text");
 
@@ -126,7 +123,6 @@ CrimeVis.prototype.updateVis = function() {
       .remove();
 
     // Update all inner rects and texts (both update and enter sets)
-
     bar.select("rect")
     .transition()
     .duration(750)

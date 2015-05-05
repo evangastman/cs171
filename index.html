@@ -111,7 +111,7 @@ body {
         </div> -->
 
         <div class="row">
-            <div class="col-md-7" id="moneyVis">
+            <div class="col-md-6" id="moneyVis">
                 <h3>User Breakdown by Income Groups</h3>
 
                  <div class = "bracketing">
@@ -135,7 +135,7 @@ body {
 
 
         <div class="row">
-            <div class="col-md-5" id="totalVis">
+            <div class="col-md-6" id="totalVis">
             	<h3> Total Reported Use 2012 </h3>
                 <svg width="650" height="440">
                     <text x="50" y="50"></text>
@@ -211,7 +211,7 @@ body {
                 <div id="tooltip" class = "hidden">
                     <p><strong>Number of users</strong>
                     </p>      
-                    <p><span id="value">100</span>%</p>
+                    <p><span id="value">100</span></p>
                 </div>
             </div>
 
@@ -270,7 +270,6 @@ body {
 
                    // reset to include all income levels
                 d3.select("#all-incomes-btn").on("click", function(){
-                    console.log("Oy!");
                     filters.income = -1;
                     crimeData = to_crime(allData);
                     crime_vis.onSelectionChange(crimeData);
@@ -407,7 +406,7 @@ body {
         "BKSMASLT" : "Arrested for assault",
         "BKDRVINF" : "Arrested for DUI",
         "BKDRUG" : "Arrested for drugs",
-        "HERLAWTR" : "Heroin-related problems with law"
+        "HERLAWTR" : "Heroin problems with law"
     }
 
     // note: remember to change this when changing bracket_sys

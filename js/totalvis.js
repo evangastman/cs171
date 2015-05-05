@@ -87,21 +87,8 @@ TotalVis.prototype.initVis = function(){
     this.svg.append("g")
         .attr("class", "y axis")
 
-    // filter, aggregate, modify data
-    this.wrangleData(null);
-
     // call the update method
     this.updateVis();
-}
-
-/**
- * Method to wrangle the data. In this case it takes an options object
- * @param _filterFunction - a function that filters data or "null" if none
- */
-TotalVis.prototype.wrangleData= function(_filterFunction){
-
-    // displayData should hold the data which is visualized
-    this.displayData = this.filterAndAggregate();
 }
 
 /**
@@ -111,6 +98,7 @@ TotalVis.prototype.updateVis = function(){
 
     var that = this;  
 
+    // labels for y axis
     this.cats = ["TOTAL", "PAST-YEAR", "PAST-MONTH"];
 
     // y.domain will depend on whether or not we show total population
@@ -155,11 +143,10 @@ TotalVis.prototype.updateVis = function(){
           .text(totalLabels[totalcats[i]] + ": " + that.metaData[i])
         })
       .on("mouseout", function () {
-    // Hide the tooltip on mouseout
+      // Hide the tooltip on mouseout
        d3.select("#tooltip")
           .style("opacity", 0);;
-      });;
-    //bar_enter.append("text");
+      });
 
     // Add attributes (position) to lower bars
     barLower
@@ -167,6 +154,9 @@ TotalVis.prototype.updateVis = function(){
       .attr("transform", function (d, i) {
         return "translate (0," + that.y(that.cats[i]) + ")";
       })
+
+    // barLower.exit()
+    //   .remove();
 
     var barUpper = this.svg.selectAll(".upperBar")
       .data(this.upperData);
@@ -189,7 +179,7 @@ TotalVis.prototype.updateVis = function(){
     // Hide the tooltip on mouseout
        d3.select("#tooltip")
           .style("opacity", 0);;
-      });;
+      });
 
     // Add attributes (position) to all bars
     barUpper
@@ -198,18 +188,14 @@ TotalVis.prototype.updateVis = function(){
         return "translate (0," + that.y(that.cats[i]) + ")";
       })
 
-    // Remove the extra bars
-    barLower.exit()
-      .remove();
-
-    barUpper.exit()
-      .remove();
+    // barUpper.exit()
+    //   .remove();
 
     // place lower bars
     barLower.select("rect")
       .transition()
       .duration(750)
-      .attr("x", function(d, i){
+      .attr("x", function(d, i){//debugger;
         return 0;
       })
       .attr("y", function(d, i){
@@ -255,25 +241,4 @@ TotalVis.prototype.onSelectionChange= function (_filteredData){
     this.upperData = [this.metaData[0]]
   
     this.updateVis();
-}
-
-/**
- * The aggregate function that creates the counts for each age for a given filter.
- * @param _filter - A filter can be, e.g.,  a function that is only true for data of a given time range
- * @returns {Array|*}
- */
-TotalVis.prototype.filterAndAggregate = function(_filter){
-
-    // Set filter to a function that accepts all items
-    // ONLY if the parameter _filter is NOT null use this parameter
-    var filter = function(){return true;}
-    if (_filter != null){
-        filter = _filter;
-    }
-
-    var that = this;
-
-    var filtered = this.metaData.filter(filter);
-
-    return filtered;
 }
