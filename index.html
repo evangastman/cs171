@@ -406,8 +406,8 @@ body {
     var mhLabels = {
         "MHNSPTR2" : "MH treatment",
         "NMHSPTR2" : "Substance treatment",
-        "MHASPTR2" : "MH & Substance",
-        "NoMH" : "No MH treatment"
+        "MHASPTR2" : "Both",
+        "NoMH" : "Neither"
     };
 
     var crimeLabels = {
@@ -521,7 +521,8 @@ body {
                         mhdata[j] ++;
                     }
                 }
-                if(_data[i]["MHNSPTR2"]==0 && _data[i]["NMHSPTR2"]==0 && _data[i]["MHASPTR2"]==0){
+                console.log(_data[i]["MHOSPTR2"]);
+                if(_data[i]["MHOSPTR2"]!=1){
                     mhdata[3] ++;
                 }
             }
