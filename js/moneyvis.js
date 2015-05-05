@@ -135,8 +135,19 @@ MoneyVis.prototype.updateVis = function() {
 
     // Add attributes (position) to all bars
     bar
-      .attr("class", "bar")
+      .attr("class", "bar2")
+
       .attr("transform", function(d, i) {return "translate(" + that.x(i) + ", 0)"; })
+      .attr("id", function(d,i) {console.log(i); return "moneybars" + i})
+      .attr("opacity", 0.5)
+       .on("click", function(d, i){
+        d3.selectAll(".bar2").style("opacity", 0.5);
+        d3.select("#moneybars"+i).style("opacity", 1);
+        
+        console.log("yes");
+      })
+
+
 
     // Remove the extra bars
     bar.exit()
@@ -241,3 +252,5 @@ MoneyVis.prototype.filterAndAggregate = function(_filter){
 
     return res;
 }
+
+

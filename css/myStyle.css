@@ -1,6 +1,14 @@
 body{
     font-family: 'PT Sans', sans-serif;
 }
+
+h3{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 30px;
+    color:black;
+    font-weight: bolder;
+    
+}
 .axis text {
     font: 10px sans-serif;
 
@@ -56,7 +64,7 @@ g.tick{
 }
 
 .container{
-    height:1200px;
+    height:1000px;
 }
 
 #tooltip {
@@ -80,4 +88,18 @@ g.tick{
     font-family: sans-serif;
     font-size: 12px;
     line-height: 20px;
+}
+
+#rssfeed{
+    padding-top:30px;
+}
+
+#feed_header{
+    padding-right: 120px;
+}
+
+#moneybars0:active, #moneybars0:hover, #moneybars1:active, #moneybars1:hover, 
+#moneybars2:active, #moneybars2:hover, #moneybars3:active, #moneybars3:hover{
+    opacity:1;
+
 }
