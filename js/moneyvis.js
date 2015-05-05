@@ -70,7 +70,7 @@ MoneyVis.prototype.initVis = function(){
         .attr("dy", ".71em")
         .style("text-anchor", "end");
 
-  console.log(this.svg);
+  //console.log(this.svg);
 
     // set origData to be the display data of the total dataset
     this.origData = this.displayData;

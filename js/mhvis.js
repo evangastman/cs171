@@ -21,7 +21,7 @@ mhVis = function(_parentElement, _data, _metaData, _total, _eventHandler){
     this.radius = Math.min(this.width, this.height) / 2;
 
     // have data also include users who have not had MH problems. See completeData function below for more details
-    this.data = this.completeData(this.data, this.total);
+    //this.data = this.completeData(this.data, this.total);
 
     this.initVis()
 }
@@ -78,7 +78,7 @@ mhVis.prototype.updateVis = function(){
 }
 
 mhVis.prototype.render = function (data) {
-  console.log(this.data);
+  //console.log(this.data);
   var that = this
 
   var arc = d3.svg.arc()
@@ -142,7 +142,9 @@ mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
     this.total = filteredTotal;
 
     // set data to be the filtered data
-    this.data = this.completeData(filteredData, this.total);
+    this.data = filteredData;
+
+    console.log(this.data);
 
     // update the bar chart
     this.render(this.data);
@@ -151,6 +153,7 @@ mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
 // initially, this.data gives us numbers for all the people who have mental health problems. This.total
 // tells us how many people have used heroin. We want to know how many people have used heroin and have had 
 // no MH problems, and add this value to the end of this.data. This function does that
+/*
 mhVis.prototype.completeData = function (MH, total) {
 
     // sum up users with MH problems
@@ -165,4 +168,4 @@ mhVis.prototype.completeData = function (MH, total) {
     MH.push(this.difference);
 
     return MH;
-}
+} */
