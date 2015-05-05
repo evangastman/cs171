@@ -138,18 +138,35 @@ var arc = d3.svg.arc()
 }
 
 mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
-    // set total to be filtered total heroin users
-    this.total = filteredTotal;
+    // if there are some people who fit the filters then update the chart
+    if (this.sum(filteredData) !== 0) {
+      // set total to be filtered total heroin users
+      this.total = filteredTotal;
 
-    // set data to be the filtered data
-    this.data = filteredData;
+      // set data to be the filtered data
+      this.data = filteredData;
 
-    console.log(this.data);
+      // update the bar chart
+      this.render(this.data);
 
-    // update the bar chart
-    this.render(this.data);
+      // make chart visible, in case it was previously hidden
+      d3.selectAll(".slice")
+      .style("opacity", "1")
+    } 
+    // else, if no one fits the filter parameters, hide the chart
+    else {
+      d3.selectAll(".slice")
+      .style("opacity", "0")
+    }
 }
 
+// helper funciton to sum an array
+mhVis.prototype.sum = function (array) {
+  var temp = array.reduce(function (a, b) {
+    return a + b
+  })
+  return temp;
+}
 // initially, this.data gives us numbers for all the people who have mental health problems. This.total
 // tells us how many people have used heroin. We want to know how many people have used heroin and have had 
 // no MH problems, and add this value to the end of this.data. This function does that
