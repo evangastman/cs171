@@ -287,6 +287,8 @@ body {
                     crime_vis.onSelectionChange(crimeData);
                     mh_vis.onSelectionChange(mhData, to_total(md)[1]);
                     total_vis.onSelectionChange(to_total(metaData));
+
+                    d3.selectAll(".bar2").style("opacity", 1);
                 });
 
                 // rebracketing

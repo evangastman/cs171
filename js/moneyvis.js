@@ -115,11 +115,11 @@ MoneyVis.prototype.updateVis = function() {
     // updates graph
 
     // Data join
-    var bar = this.svg.selectAll(".bar")
+    var bar2 = this.svg.selectAll(".bar2")
       .data(this.metaData, function(d) { return d; });
 
     // Append new bar groups, if required
-    var bar_enter = bar.enter().append("g");
+    var bar_enter = bar2.enter().append("g");
 
     // Append a rect and a text only for the Enter set (new g)
     bar_enter.append("rect");
@@ -134,9 +134,9 @@ MoneyVis.prototype.updateVis = function() {
     bar_enter.append("text");
 
     // Add attributes (position) to all bars
-    bar
+    bar2
+      //.attr("class", "bar")
       .attr("class", "bar2")
-
       .attr("transform", function(d, i) {return "translate(" + that.x(i) + ", 0)"; })
       .attr("id", function(d,i) {console.log(i); return "moneybars" + i})
       .attr("opacity", 0.5)
@@ -150,12 +150,13 @@ MoneyVis.prototype.updateVis = function() {
 
 
     // Remove the extra bars
-    bar.exit()
+    bar2.exit()
       .remove();
+
 
     // Update all inner rects and texts (both update and enter sets)
 
-    bar.select("rect")
+    bar2.select("rect")
       .attr("x", 0)
       .attr("y", function (d) { 
            	return that.y(d)
@@ -169,7 +170,7 @@ MoneyVis.prototype.updateVis = function() {
       ;
     
 
-    bar.select("image")
+    bar2.select("image")
       .attr("y", function(d){
         return that.y(d)
       })
@@ -179,12 +180,12 @@ MoneyVis.prototype.updateVis = function() {
         return that.height - that.y(d)})
       ; 
 
-    bar.select("image")
+    bar2.select("image")
       .on("click", function(d, i){
         that.barclicked(i + 1);
       });
 
-    bar.select("text")
+    bar2.select("text")
       .attr("y", 0)
       .attr("x", 0)
       .attr("text-anchor", "middle")
@@ -192,6 +193,10 @@ MoneyVis.prototype.updateVis = function() {
       .text(function(d, i) {return xlabels[i]; })
       .attr("class", "type-label")
       .attr("dy", ".35em")
+
+          // Remove the extra bars
+    bar2.exit()
+      .remove();
 }
 
 // /**
