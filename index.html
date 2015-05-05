@@ -305,6 +305,9 @@ body {
                     crime_vis.onSelectionChange(to_crime(allData));
                     total_vis.onSelectionChange(to_total(md));
                     mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
+
+                    d3.selectAll(".bar2").style("opacity", 1);
+
                 });
                 
                 // filtering by income (by clicking on a money stack)
