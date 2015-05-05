@@ -98,8 +98,6 @@ g.tick{
     padding-right: 120px;
 }
 
-#moneybars0:active, #moneybars0:hover, #moneybars1:active, #moneybars1:hover, 
-#moneybars2:active, #moneybars2:hover, #moneybars3:active, #moneybars3:hover{
+.bar2:hover{
     opacity:1;
-
 }
