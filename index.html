@@ -122,14 +122,10 @@ body {
                     <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
                 </div>
 
-       <!-- 
->>>>>>> 44136cb0c5711fc822da2f75f285ae90e9b59ef2
-                <svg width="650" height="10">
-                    <text x="50" y="50"></text>
-                </svg> -->
+      
                 <div class = "cash_selector">
-                <p id = "info_cash"> Click a stack of cash or go back to 
-                    <button class="btn btn-sm btn-primary" id="all-incomes-btn">   All income groups </button></p>
+               
+                    <button class="btn btn-sm btn-primary" id="all-incomes-btn">   All income groups </button>
                 </div>
         </div>
 
@@ -146,35 +142,29 @@ body {
             </div>
     </div>
 
-            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+
+
             <div class = "row">
-                <div class = "col-md-12">
-                    <h3 id = "crime_label"> Occurences of Reported Crime</h3>
-                  <h3 id = "mh_label" > Mental Health Reporting </h3>
-            </div>   
-
-
-
-        <div class = "row">
-            <div class = "col-md-2">
-                <div class = "sex">
-                    <h4> Select Gender: </h4>
-                    <label>
-                        <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
-                    <label>
-                        <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
-                    <label>
-                        <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
-                     
-                
+                    <div class = "col-md-3"></div>
+                    <div class = "col-md-3">
+                        <div class = "sex">
+                            <h4> Select Gender: </h4>
+                            <label>
+                                <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
+                            <label>
+                                <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
+                            <label>
+                                <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
+                             
+                        
+                        </div>
                 </div>
-            </div>
 
 
-            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+        
       
         
-          <div class = "col-md-6">
+          <div id = "age_b" class = "col-md-6">
            <div class = "age">
             <h4> Select Age Group: </h4>
             <label>
@@ -192,9 +182,18 @@ body {
             </div>
           </div>
 
-            <div class = "col-md-4">
-            </div>
     </div>
+
+            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
+            <div class = "row">
+                <div class = "col-md-12">
+                    <h3 id = "crime_label"> Occurences of Reported Crime</h3>
+                    <h3 id = "mh_label" > Mental Health Reporting </h3>
+            </div>   
+
+
+
+
 
         <div class="row">
             <div class="col-md-9" id="crimeVis">
@@ -220,11 +219,15 @@ body {
         
         </div>
 
-        <div class = "row">
-            <div class = "col-md-4"></div>
+
+
+        <div id = "rssfeed" class = "row">
+            <div class = "col-md-3"></div>
+
             <div class = "col-md-4">
-            <!-- start feedwind code --><script type="text/javascript">document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://topics.nytimes.com/top/reference/timestopics/subjects/h/heroin/index.html?rss=1",rssmikle_frame_width: "400",rssmikle_frame_height: "400",frame_height_by_article: "3",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "left",corner: "off",scrollbar: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "8",mcspeed: "20",sort: "Off",rssmikle_title: "on",rssmikle_title_sentence: "NYT> Heroin in the US and the World",rssmikle_title_link: "",rssmikle_title_bgcolor: "#FFB914",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#FFFFFF",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#1C1405",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#666666",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",item_description_style: "text+tn",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "icon",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; width:400px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code -->
-            <div class = "col-md-4"></div>
+             <h3 id = "feed_header"> Heroin in the US and the World </h3>
+ <!-- start feedwind code --><script type="text/javascript">document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://topics.nytimes.com/top/reference/timestopics/subjects/h/heroin/index.html?rss=1",rssmikle_frame_width: "400",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "left",corner: "off",scrollbar: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "5",mcspeed: "20",sort: "Off",rssmikle_title: "on",rssmikle_title_sentence: "",rssmikle_title_link: "http://topics.nytimes.com/top/reference/timestopics/subjects/h/heroin/index.html?8qa",rssmikle_title_bgcolor: "#FFA51F",rssmikle_title_color: "#080701",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#FFFFFF",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#0F0B06",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#666666",rssmikle_item_date: "gl1",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",item_description_style: "text+tn",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; width:400px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code -->
+            <div class = "col-md-5"></div>
         </div>
         
     </div>
@@ -284,6 +287,8 @@ body {
                     crime_vis.onSelectionChange(crimeData);
                     mh_vis.onSelectionChange(mhData, to_total(md)[1]);
                     total_vis.onSelectionChange(to_total(metaData));
+
+                    d3.selectAll(".bar2").style("opacity", 1);
                 });
 
                 // rebracketing
@@ -300,6 +305,9 @@ body {
                     crime_vis.onSelectionChange(to_crime(allData));
                     total_vis.onSelectionChange(to_total(md));
                     mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
+
+                    d3.selectAll(".bar2").style("opacity", 1);
+
                 });
                 
                 // filtering by income (by clicking on a money stack)
