@@ -204,7 +204,7 @@ TotalVis.prototype.updateVis = function(){
       .attr("height", function(d){
         return that.height/8;
       })
-      .attr("width", function(d, i){(console.log(d));
+      .attr("width", function(d, i){
         return that.xLower(d);
       })
 

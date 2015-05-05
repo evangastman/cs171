@@ -267,6 +267,7 @@ body {
 
                 var crime_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
 
+                // to_total(metaData)[1] gives the total population filtered only by income group...
                 var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, to_total(metaData)[1], MyEventHandler);
 
                 var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
@@ -274,8 +275,17 @@ body {
                    // reset to include all income levels
                 d3.select("#all-incomes-btn").on("click", function(){
                     filters.income = -1;
+
+                    if(bracket_sys == 1)
+                        var md = metaData;
+                 
+                    else
+                        var md = metaData2;
+
                     crimeData = to_crime(allData);
+                    mhData = to_mh(allData);
                     crime_vis.onSelectionChange(crimeData);
+                    mh_vis.onSelectionChange(mhData, to_total(md)[1]);
                     total_vis.onSelectionChange(to_total(metaData));
                 });
 
@@ -399,8 +409,8 @@ body {
     var mhLabels = {
         "MHNSPTR2" : "MH treatment",
         "NMHSPTR2" : "Substance treatment",
-        "MHASPTR2" : "MH & Substance",
-        "NoMH" : "No MH treatment"
+        "MHASPTR2" : "Both",
+        "NoMH" : "Neither"
     };
 
     var crimeLabels = {
@@ -505,7 +515,7 @@ body {
     // returns array of number of heroin users fitting each mental health category
     function to_mh(_data){
 
-        var mhdata = [0, 0, 0];
+        var mhdata = [0, 0, 0, 0];
 
         for(i in _data){
             if(bigfilter(_data[i])){
@@ -513,6 +523,10 @@ body {
                     if(_data[i][mhcats[j]] == 1){
                         mhdata[j] ++;
                     }
+                }
+                console.log(_data[i]["MHOSPTR2"]);
+                if(_data[i]["MHOSPTR2"]!=1){
+                    mhdata[3] ++;
                 }
             }
             
