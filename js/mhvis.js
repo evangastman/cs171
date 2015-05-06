@@ -146,23 +146,3 @@ mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
     // update the bar chart
     this.render(this.data);
 }
-
-// initially, this.data gives us numbers for all the people who have mental health problems. This.total
-// tells us how many people have used heroin. We want to know how many people have used heroin and have had 
-// no MH problems, and add this value to the end of this.data. This function does that
-/*
-mhVis.prototype.completeData = function (MH, total) {
-
-    // sum up users with MH problems
-    this.sum = MH.reduce (function (a,b) {
-      return a + b
-    })
-
-    // subtract users with MH problems from total users
-    this.difference = total - this.sum
-
-    // add the users without MH problems to our dataset
-    MH.push(this.difference);
-
-    return MH;
-} */
