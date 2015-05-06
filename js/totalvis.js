@@ -137,15 +137,14 @@ TotalVis.prototype.updateVis = function(){
        .on("mouseover", function (d, i) {
          d3.select("#tooltip")
           .attr("class", "notHidden")
-          .style("left", d3.event.pageX + "px")
-          .style("top", d3.event.pageY + "px")
+          .style("left", d3.event.pageX + 100 + "px")
+          .style("top", d3.event.pageY + 20 + "px")
           .style("opacity", 1)
           .select("#value")
           .text(totalLabels[totalcats[i]] + ": " + that.metaData[i])
         })
       .on("mouseout", function () {
       // Hide the tooltip on mouseout
-      console.log("sayonara!");
        d3.select("#tooltip")
           .style("opacity", 0);;
       });
@@ -171,14 +170,13 @@ TotalVis.prototype.updateVis = function(){
        .on("mouseover", function (d, i) {
          d3.select("#tooltip")
           .attr("class", "notHidden")
-          .style("left", d3.event.pageX + "px")
-          .style("top", d3.event.pageY + "px")
+          .style("left", d3.event.pageX + 100 + "px")
+          .style("top", d3.event.pageY - 30 + "px")
           .style("opacity", 1)
           .select("#value")
           .text(totalLabels[totalcats[i]] + ": " + that.metaData[i])
         })
       .on("mouseout", function () {
-        console.log("bye!");
     // Hide the tooltip on mouseout
        d3.select("#tooltip")
           .style("opacity", 0);;
