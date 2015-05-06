@@ -126,7 +126,7 @@ TotalVis.prototype.updateVis = function(){
 
     // updates graph
     // Data join
-    var barLower = this.svg.selectAll(".lowerBar")
+    var barLower = this.svg.selectAll(".barLower")
       .data(this.lowerData);
 
     // Append new bar groups, if required
@@ -156,10 +156,10 @@ TotalVis.prototype.updateVis = function(){
         return "translate (0," + that.y(that.cats[i]) + ")";
       })
 
-    // barLower.exit()
-    //   .remove();
+    barLower.exit()
+      .remove();
 
-    var barUpper = this.svg.selectAll(".upperBar")
+    var barUpper = this.svg.selectAll(".barUpper")
       .data(this.upperData);
 
     // Append new bar groups, if required
@@ -189,8 +189,8 @@ TotalVis.prototype.updateVis = function(){
         return "translate (0," + that.y(that.cats[i]) + ")";
       })
 
-    // barUpper.exit()
-    //   .remove();
+    barUpper.exit()
+       .remove();
 
     // place lower bars
     barLower.select("rect")
