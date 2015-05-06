@@ -70,7 +70,6 @@ MoneyVis.prototype.initVis = function(){
         .attr("dy", ".71em")
         .style("text-anchor", "end");
 
-  //console.log(this.svg);
 
     // set origData to be the display data of the total dataset
     this.origData = this.displayData;
@@ -138,13 +137,12 @@ MoneyVis.prototype.updateVis = function() {
       //.attr("class", "bar")
       .attr("class", "bar2")
       .attr("transform", function(d, i) {return "translate(" + that.x(i) + ", 0)"; })
-      .attr("id", function(d,i) {console.log(i); return "moneybars" + i})
+      .attr("id", function(d,i) { return "moneybars" + i})
       .attr("opacity", 0.5)
        .on("click", function(d, i){
         d3.selectAll(".bar2").style("opacity", 0.5);
         d3.select("#moneybars"+i).style("opacity", 1);
-        
-        console.log("yes");
+
       })
 
 
@@ -206,8 +204,6 @@ MoneyVis.prototype.updateVis = function() {
 //  * @param selection
 //  */
 MoneyVis.prototype.onSelectionChange= function (filteredData){
-
-    console.log(filteredData);
 
     // set data to be the filtered data
     this.data = filteredData;

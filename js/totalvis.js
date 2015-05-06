@@ -145,6 +145,7 @@ TotalVis.prototype.updateVis = function(){
         })
       .on("mouseout", function () {
       // Hide the tooltip on mouseout
+      console.log("sayonara!");
        d3.select("#tooltip")
           .style("opacity", 0);;
       });
@@ -177,6 +178,7 @@ TotalVis.prototype.updateVis = function(){
           .text(totalLabels[totalcats[i]] + ": " + that.metaData[i])
         })
       .on("mouseout", function () {
+        console.log("bye!");
     // Hide the tooltip on mouseout
        d3.select("#tooltip")
           .style("opacity", 0);;

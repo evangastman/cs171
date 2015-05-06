@@ -107,6 +107,7 @@ CrimeVis.prototype.updateVis = function() {
         })
       .on("mouseout", function () {
       // Hide the tooltip on mouseout
+      console.log("peace!");
        d3.select("#tooltip")
           .style("opacity", 0);;
       });

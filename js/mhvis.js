@@ -78,7 +78,6 @@ mhVis.prototype.updateVis = function(){
 }
 
 mhVis.prototype.render = function (data) {
-  //console.log(this.data);
   var that = this
 
   var arc = d3.svg.arc()
@@ -143,8 +142,6 @@ mhVis.prototype.onSelectionChange= function (filteredData, filteredTotal){
 
     // set data to be the filtered data
     this.data = filteredData;
-
-    console.log(this.data);
 
     // update the bar chart
     this.render(this.data);
