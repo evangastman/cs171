@@ -37,13 +37,21 @@ of the project was inspired by Homework 3.
 
 
 
+
 2. Screencast
 -------------
 https://www.youtube.com/watch?v=xA1Zfx3alfg&feature=youtu.be
 
 
+
+
+
 3. Project Site
 ---------------
+http://evangastman.github.io/
+
+
+
 
 
 4. Instructions
@@ -53,6 +61,15 @@ To get started, we recommend clicking a dollar bill stack to filter by income.
 This will update the barchart on the right, and both charts below it interactively.
 Then, choose sex or age filters, which will affect the mental health pie chart and
 the crime chart interactively. 
+
+
+
+
+5. Process Book
+---------------
+https://docs.google.com/document/d/1u9oxvJWnEvEiwISHxch55NimS0Wlqz3wDD_7YHqtL3Y/edit
+
+
 
 Enjoy!
 
