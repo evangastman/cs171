@@ -1,563 +1,61 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Heroin and Income</title>
+<head>
+<title>Drugs and Their Users</title>
+<meta charset="UTF-8" />
 
 
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Heroin</title>
-
-
-    <!-- ADD Libraries-->
-    <script src="libs/d3/d3.min.js" charset="utf-8"></script>
-    <script src="libs/jquery/jquery-2.1.1.min.js" charset="utf-8"></script>
-    <script src="libs/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-    <script src="http://d3js.org/queue.v1.min.js"></script>
-
-
-    <!--Stylesheets-->
-    <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/myStyle.css">
-
-    <!-- Get some nice font-->
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-
-
-    <!-- add own vis classes-->
-    <!-- // <script src = "js/jsonfunctions.js"></script> -->
-    <script src = "js/totalvis.js"></script>
-    <script src="js/countvis.js"></script>
-    <script src="js/crimevis.js"></script>
-    <script src="js/mhvis.js"></script>
-    <script src="js/moneyvis.js"></script>
-    <script src="js/form.js"></script>
-    <script src="js/moneyvis.js"></script>  
-
-</head>
-
-<style>
-
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.bar {
-  fill: orange;
-}
-
-.bar:hover {
-  fill: orangered ;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
- Creates a small triangle extender for the tooltip 
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 
 <body>
 
-   
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <span id = "title" class="sr-only">HEROIN AND ITS USERS IN THE UNITED STATES 2012</span>
+        <br></br>
+        <span id = "title2">by Curt Stone, David Kaufman, and Evan Gastman </span>
+     </div>
+  </div>
+  </nav>
 
-    <div class="container">
-       
-<!--         <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <h3> Here is a data visualization about the use of heroin in the US in the year 2012 that tries to make sense of the question: Who uses heroin and why? 
-                <br>
-                </h3>
+<div id = "container">
+  <img src = "img/pillcontainer.png">
+</div>
 
-            </div>
+<div class = "pill" id = "p_video">
+  <a href = https://www.youtube.com/watch?v=xA1Zfx3alfg&feature=youtu.be> <p> Video </p></a>
+  <img src = "img/pill.png">
 
-        </div> -->
+</div>
 
-        <div class="row">
-            <div class="col-md-6" id="moneyVis">
-                <h3>User Breakdown by Income Groups</h3>
 
-                 <div class = "bracketing">
-                    <h4> Select number of income groups: </h4>
-                     <label>
-                        <input type="radio" id="bracketing" name="bracketing" class="brack" value="hi" onclick="bracket_sys=1;" checked>4 Brackets</label>
-                    <label>
-                    <input type="radio" id="bracketing" name="bracketing" class="brack" value="low" onclick="bracket_sys=2;">7 brackets </label>
-                </div>
+<div class = "pill" id = "p_git">
+  <a href = https://github.com/evangastman/evangastman.github.io> <p> GitHub </p> </a>
+  <img src = "img/pill.png">
 
-      
-                <div class = "cash_selector">
-               
-                    <button class="btn btn-sm btn-primary" id="all-incomes-btn">   All income groups </button>
-                </div>
-        </div>
+</div>
 
+<div class = "pill" id = "p_process">
+  <a href = https://docs.google.com/document/d/1u9oxvJWnEvEiwISHxch55NimS0Wlqz3wDD_7YHqtL3Y/edit> <p> Process Book </p></a>
+  <img src = "img/pill.png">
 
-        <div class="row">
-            <div class="col-md-6" id="totalVis">
-            	<h3> Total Reported Use 2012 </h3>
-                <svg width="650" height="440">
-                    <text x="50" y="50"></text>
-                </svg>
-            </div>
+</div>
 
-            
-            </div>
-    </div>
+<form action="index.html">
+<div class = "pill" id = "p_vis"  >
+  <a href = "/visualization.html"> <p> Visualization </p> </a>
+  <img src = "img/pill.png">
+</div>
+</form>
 
+<div id = "description">
+ 	<p>"Over the past six years the number of annual heroin users has almost doubled... Heroin’s resurgence means that, by some measures, it is more popular than crack cocaine, the bogeyman of the 1980s and 1990s." -<i>Economist</i>, "The Great American Relapse"</p>
+ 	<p> Here is our CS171 final project looking at the people directly involved in heroin's rise. </p>
 
+</p>
+</div>
 
-            <div class = "row">
-                    <div class = "col-md-3"></div>
-                    <div class = "col-md-3">
-                        <div class = "sex">
-                            <h4> Select Gender: </h4>
-                            <label>
-                                <input type="radio" id="sex" name="sex" class="sex" value="1" onclick="filters.sex=1;">male</label>
-                            <label>
-                                <input type="radio" id="sex" name="sex" class="sex" value="2" onclick="filters.sex=2;">female</label>
-                            <label>
-                                <input type="radio" id="sex" name="sex" class="sex" value="-1" onclick="filters.sex=-1;" checked>all</label>
-                             
-                        
-                        </div>
-                </div>
-
-
-        
-      
-        
-          <div id = "age_b" class = "col-md-6">
-           <div class = "age">
-            <h4> Select Age Group: </h4>
-            <label>
-                <input type="radio" id="age" name="age" class="age" value="1" onclick="filters.age=1;">12-17</label>
-            <label>
-                <input type="radio" id="age" name="age" class="age" value="2" onclick="filters.age=2;">18-25</label>
-            <label>
-                <input type="radio" id="age" name="age" class="age" value="3" onclick="filters.age=3;">26-34</label>
-            <label>
-                <input type="radio" id="age" name="age" class="age" value="4" onclick="filters.age=4;">35-49</label>
-            <label>
-                <input type="radio" id="age" name="age" class="age" value="5" onclick="filters.age=5;">50+</label>
-            <label>
-                <input type="radio" id="age" name="age" class="age" value="-1" onclick="filters.age=-1;" checked>all</label>  
-            </div>
-          </div>
-
-    </div>
-
-            <!-- NOTE for those in charge: of eye-candy these filters (sex and age) do not apply to totalVis, so these buttons should end up below that in the final layout -->
-            <div class = "row">
-                <div class = "col-md-12">
-                    <h3 id = "crime_label"> Occurences of Reported Crime</h3>
-                    <h3 id = "mh_label" > Mental Health Reporting </h3>
-            </div>   
-
-
-
-
-
-        <div class="row">
-            <div class="col-md-9" id="crimeVis">
-<!--                <div id="tooltip" class = "hidden">
-                    <p><strong>Number of users</strong>
-                    </p>      
-                    <p><span id="value">100</span>%</p>
-                </div> -->
-            </div>          
-                <div class="col-md-3" id="mhVis">
-
-                </div>
-
-                <div id="tooltip" class = "hidden">
-                    <p><strong>Number of users</strong>
-                    </p>      
-                    <p><span id="value">100</span></p>
-                </div>
-            </div>
-
-        </div>       
-
-        
-        </div>
-
-
-
-        <div id = "rssfeed" class = "row">
-            <div class = "col-md-3"></div>
-
-            <div class = "col-md-4">
-             <h3 id = "feed_header"> Heroin in the US and the World </h3>
- <!-- start feedwind code --><script type="text/javascript">document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://topics.nytimes.com/top/reference/timestopics/subjects/h/heroin/index.html?rss=1",rssmikle_frame_width: "400",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "left",corner: "off",scrollbar: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "5",mcspeed: "20",sort: "Off",rssmikle_title: "on",rssmikle_title_sentence: "",rssmikle_title_link: "http://topics.nytimes.com/top/reference/timestopics/subjects/h/heroin/index.html?8qa",rssmikle_title_bgcolor: "#FFA51F",rssmikle_title_color: "#080701",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#FFFFFF",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#0F0B06",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#666666",rssmikle_item_date: "gl1",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",item_description_style: "text+tn",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; width:400px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code -->
-            <div class = "col-md-5"></div>
-        </div>
-        
-    </div>
-
-    <script>
-
-        $(function(){ // this function is called after the HTML document is fully loaded
-
-
-            //==========================================
-            //--- HERE IS WHERE ALL THE MAGIC STARTS --
-            //==========================================
-
-
-            // variables keeping global knowledge of the data
-            var allData = [];
-            var metaData = {};
-            var crimeData = [];
-            var mhData = [];
-
-            // metaData is for the 4-bracket system. metaData2 is for the 7-bracket system
-            var metaData2 = [];
-
-            // variable storing all the people surveyed
-            var totalPop;
-
-            // call this function after Data is loaded, reformatted and bound to the variables
-            var initVis = function(){
-
-            	var that = this;
-
-                var MyEventHandler = new Object();
-
-                var money_vis = new MoneyVis(d3.select("#moneyVis"), allData, to_money(metaData), to_money(metaData2), MyEventHandler);
-
-                var total_vis = new TotalVis(d3.select("#totalVis"), allData, to_total(metaData), to_total(metaData2), totalPop, MyEventHandler);
-
-                var crime_vis = new CrimeVis(d3.select("#crimeVis"), crimeData, metaData, MyEventHandler);
-
-                // to_total(metaData)[1] gives the total population filtered only by income group...
-                var mh_vis = new mhVis(d3.select("#mhVis"), mhData, metaData, to_total(metaData)[1], MyEventHandler);
-
-                var form = new Form(d3.select("#iForm"), mhData, crimeData, allData, MyEventHandler)
-
-                   // reset to include all income levels
-                d3.select("#all-incomes-btn").on("click", function(){
-                    filters.income = -1;
-
-                    if(bracket_sys == 1)
-                        var md = metaData;
-                 
-                    else
-                        var md = metaData2;
-
-                    crimeData = to_crime(allData);
-                    mhData = to_mh(allData);
-                    crime_vis.onSelectionChange(crimeData);
-                    mh_vis.onSelectionChange(mhData, to_total(md)[1]);
-                    total_vis.onSelectionChange(to_total(metaData));
-
-                    d3.selectAll(".bar2").style("opacity", 1);
-                });
-
-                // rebracketing
-                d3.selectAll(".brack").on("click", function(){
-                    filters.income = -1;
-
-                    if(bracket_sys == 1)
-                        var md = metaData;
-                 
-                    else
-                        var md = metaData2;
-
-                    money_vis.onSelectionChange(to_money(md));
-                    crime_vis.onSelectionChange(to_crime(allData));
-                    total_vis.onSelectionChange(to_total(md));
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
-
-                    d3.selectAll(".bar2").style("opacity", 1);
-
-                });
-                
-                // filtering by income (by clicking on a money stack)
-                $(MyEventHandler).bind("barClicked", function(event, i){
-                    filters.income = i;
-
-                    if(bracket_sys == 1)
-                        var md = metaData;
-                    else
-                        var md = metaData2;
-
-                    crimeData = to_crime(allData);
-                    crime_vis.onSelectionChange(crimeData);
-                    total_vis.onSelectionChange(to_total(md));
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
-                })
-
-                // filter by sex
-                d3.selectAll(".sex").on("click", function(){
-                     if(bracket_sys == 1)
-                        var md = metaData;
-                    else
-                        var md = metaData2;
-                    //console.log(filters);
-                    crimeData = to_crime(allData);
-                    crime_vis.onSelectionChange(crimeData);
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
-                });
-
-                // filter by age
-                d3.selectAll(".age").on("click", function(){
-                    if(bracket_sys == 1)
-                        var md = metaData;
-                    else
-                        var md = metaData2;
-                    //console.log(filters);
-                    crimeData = to_crime(allData);
-                    crime_vis.onSelectionChange(crimeData);
-                    mh_vis.onSelectionChange(to_mh(allData), to_total(md)[1]);
-                });
-
-            }
-
-            // call this function after both files are loaded -- error should be "null" if no error
-            var dataLoaded = function (error, _allData, _metaData, _metaData2) {
-
-                if (!error) {
-
-                    allData = _allData;
-
-                    metaData = _metaData;
-                    //remember total people surveyed
-                    totalPop = to_total(metaData)[0];
-
-                    metaData2 = _metaData2;
-
-                    crimeData = to_crime(allData);
-
-                    mhData = to_mh(allData);
-
-                    initVis();
-                }
-            }
-
-            var startHere = function(){
-
-                //load data here
-                queue()
-                    .defer(d3.json, "data/CS171_UsersOnly_JSON.json")
-                    .defer(d3.json, "data/CS171_metaData.json")
-                    .defer(d3.json, "data/CS171_metaData_7brackets.json")
-                    .await(storeDataInObjs)
-
-                function storeDataInObjs(e, users, meta, meta2){
-                    dataLoaded(e, users, meta, meta2)
-                }
-            }
-
-            startHere();
-        })
-    
-     /**
-    * Helper function that gets the width of a D3 element
-     */
-    var getInnerWidth = function(element) {
-         var style = window.getComputedStyle(element.node(), null);
-
-        return parseInt(style.getPropertyValue('width'));
-    }
-
-    var totalcats = ["number", "HERYR", "HERMON"];
-
-    var crimecats = ["BOOKED", "BKSRVIOL", "BKSMASLT", "BKDRVINF", "BKDRUG", "HERLAWTR"];
-
-    var mhcats = ["MHNSPTR2", "NMHSPTR2", "MHASPTR2", "NoMH"];
-
-    // objects with key-value pairs of survey codes and readable explanations, to be used as labels in vis
-    var totalLabels = {
-        "number" : "total surveyed",
-        "HERYR" : "heroin users in past year",
-        "HERMON" : "heroin users in past month"
-    };
-
-    var mhLabels = {
-        "MHNSPTR2" : "MH treatment",
-        "NMHSPTR2" : "Substance treatment",
-        "MHASPTR2" : "Both",
-        "NoMH" : "Neither"
-    };
-
-    var crimeLabels = {
-        "BOOKED" : "Ever arrested",
-        "BKSRVIOL" : "Arrested for violence",
-        "BKSMASLT" : "Arrested for assault",
-        "BKDRVINF" : "Arrested for DUI",
-        "BKDRUG" : "Arrested for drugs",
-        "HERLAWTR" : "Heroin problems with law"
-    }
-
-    // note: remember to change this when changing bracket_sys
-    var moneycats = ["0-20K", "20-50K", "50-75K", "75K+"];
-    var moneycats2 = ["0-10K", "10-20K", "20-30K", "30-40K", "40-50K", "50-75K", "75K+"];
-
-    // we're using -1 to signify that there is no parameter by which we want to filter. (we're using -1 instead of null, because we'll be assigning these variables ints when we DO want to filter by a parameter. If we then want to go back to null, javascript can't make an int null)
-    var filters = {
-        income: -1,
-        age: -1,
-        sex: -1
-    }
-
-    // the dataset provides us with two systems of bracketing. system 1 has 4 brackets; system 2 has 7.
-    var bracket_sys = 1;
-
-    /* filter the data! I wrote this function to act on a single datum, and I call it in
-    the to_crime and to_mh functions. I think this is more efficient than filtering all
-    the data at once, since it means we have to loop through it fewer times. But the
-    dataset is obviously small enough that this won't be noticeable, so if you would
-    rather filter the data all at once then just turn put this code into a for loop.
-    */
-    function bigfilter (d){
-        // if all categories of filters are -1, don't filter anything and just return true
-        if(bracket_sys==1)
-            var income_var = "INCOME"
-        else
-            var income_var = "IRFAMIN3"
-
-        if(filters.income == -1 && filters.age == -1 && filters.sex == -1) {
-            return true;
-        }
-
-        // else filter
-        else {
-            if((d[income_var] != filters.income && filters.income != -1)
-                || (d["CATAG3"] != filters.age && filters.age != -1)
-                || (d["IRSEX"] != filters.sex && filters.sex != -1))
-                return false;
-
-            else
-                return true; 
-        }
-    }
-
-    // returns array of length 3: population, heroin users in past year, heroin users in past month
-    function to_total(_metadata){
-        
-        var totaldata = [0, 0, 0];
-
-        if(filters.income == -1){
-            for(i in _metadata){
-                totaldata[0] += _metadata[i]["number"];
-                totaldata[1] += _metadata[i]["HERYR"];
-                totaldata[2] += _metadata[i]["HERMON"];
-            }
-
-        }
-
-        else{
-            for(i in _metadata){
-                if(_metadata[i]["INCOME"] == filters.income){
-                    totaldata[0] = _metadata[i]["number"];
-                    totaldata[1] = _metadata[i]["HERYR"];
-                    totaldata[2] = _metadata[i]["HERMON"];
-                    break;
-                }
-            }
-        }
-        return totaldata;
-    }
-
-    // returns array of number of heroin users fitting each crime category
-    function to_crime(_data){
-
-        var tempCrimeData = [0, 0, 0, 0, 0, 0];
-
-        for(i in _data){
-            //console.log(bigfilter(_data[i]));
-            if(bigfilter(_data[i])){
-                for(j in crimecats){
-                    if(_data[i][crimecats[j]] == 1){
-                        tempCrimeData[j] ++;      
-                    }
-                }
-            }
-        }
-
-        // console.log(tempCrimeData);
-        return tempCrimeData;
-    }
-
-    // returns array of number of heroin users fitting each mental health category
-    function to_mh(_data){
-
-        var mhdata = [0, 0, 0, 0];
-
-        for(i in _data){
-            if(bigfilter(_data[i])){
-                for(j in mhcats){
-                    if(_data[i][mhcats[j]] == 1){
-                        mhdata[j] ++;
-                    }
-                }
-                if(_data[i]["MHOSPTR2"]!=1){
-                    mhdata[3] ++;
-                }
-            }
-            
-        }
-
-        return mhdata;
-    }
-
-    // returns array of "average" income levels for each income bracket
-        // for example, in the bracket [0, 20K), the average is 10
-    // I will probbaly need to create a second metadata file for this
-        // (one for each system of bracketing)
-    function to_money(_metadata){
-
-        if(bracket_sys==1)
-            var moneydata = [0, 0, 0, 0];
-        else
-            var moneydata = [0, 0, 0, 0, 0, 0, 0];
-
-        for(i in _metadata){
-            moneydata[i] = _metadata[i]["avg"];
-        }
-
-        return moneydata;
-
-    }
-
-    </script>
 </body>
 </html>
